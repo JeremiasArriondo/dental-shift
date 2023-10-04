@@ -1,12 +1,13 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Navbar } from "./components/Layout/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Home",
-  description: "Consultorio dental",
+  title: { template: "%s | Eliana", default: "Eliana" },
+  description: "Consultorio dental Eliana",
 };
 
 export default function RootLayout({
@@ -16,7 +17,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <div className="flex relative min-h-screen flex-col justify-between">
+          <Navbar />
+          {children}
+        </div>
+      </body>
     </html>
   );
 }
