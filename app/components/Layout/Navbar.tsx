@@ -1,11 +1,13 @@
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
 
 export const Navbar = () => {
   return (
     <header className="z-50 sticky top-0">
       <nav className="bg-bgColor supports-backdrop-blur:bg-background/60 sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
         <div className="flex flex-wrap gap-y-2 md:gap-0 justify-between items-center mx-auto max-w-screen-xl p-4">
-          <a href="https://flowbite.com" className="flex items-center gap-2">
+          <a href="#" className="flex items-center gap-2">
             <Image
               src="/images/logo-circle.webp"
               height={40}
@@ -16,7 +18,7 @@ export const Navbar = () => {
               Eliana Ginocchio
             </span>
           </a>
-          <div className="order-3 xs:order-none">
+          <div>
             <ul className="flex flex-row font-medium mt-0 mr-6 space-x-8 text-sm">
               <li>
                 <a
@@ -40,9 +42,12 @@ export const Navbar = () => {
             </ul>
           </div>
           <div className="flex items-center">
-            <a href="#" className="text-sm  text-baseLigth hover:underline">
+            {/* <a href="#" className="text-sm  text-baseLigth hover:underline">
               Login
-            </a>
+            </a> */}
+            <Button asChild variant="outline">
+              <Link href="/login">Login</Link>
+            </Button>
           </div>
         </div>
       </nav>
