@@ -1,5 +1,6 @@
 import { Contact } from "@/components/contact";
 import { Hero } from "@/components/hero";
+import { Services } from "@/components/services";
 
 export const metadata = {
   title: "Inicio",
@@ -10,6 +11,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center">
       <Hero />
+      <Services />
       <Contact />
     </main>
   );
