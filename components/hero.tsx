@@ -1,5 +1,5 @@
-import Image from "next/image";
-import { Button } from "./ui/button";
+import Image from 'next/image'
+import { Button } from './ui/button'
 
 export const Hero = () => {
   return (
@@ -29,10 +29,10 @@ export const Hero = () => {
         alt="Sonrisa de mujer"
         priority
         style={{
-          width: "100%",
-          height: "auto",
+          width: '100%',
+          height: 'auto'
         }}
       />
     </section>
-  );
-};
+  )
+}

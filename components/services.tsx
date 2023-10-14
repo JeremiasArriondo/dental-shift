@@ -81,8 +81,8 @@ export const Services = () => {
         </a>
       </div>
     </section>
-  );
-};
+  )
+}
 
 // Limpieza dental - ortodoncia - endodoncia - odontologia general
 /*
