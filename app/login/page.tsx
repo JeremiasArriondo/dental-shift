@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function LoginPage() {
   return (
-    <main className="flex min-h-screen flex-col items-center pt-16">
+    <main className="grid place-content-center min-h-screen">
       <AuthButtonServer />
     </main>
   )
