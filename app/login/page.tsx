@@ -1,4 +1,3 @@
-import { AuthButton } from '@/components/auth-btn'
 import { AuthButtonServer } from '@/components/auth-btn-server'
 
 export const metadata = {
