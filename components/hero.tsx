@@ -3,7 +3,7 @@ import { Button } from './ui/button'
 
 export const Hero = () => {
   return (
-    <section className="min-h-[calc(100vh-72px)] mx-8 py-8 flex items-center gap-8 flex-col md:flex-row">
+    <section className="min-h-[calc(100vh-72px)] mx-4 md:mx-8 py-8 flex items-center gap-8 flex-col md:flex-row">
       <div>
         <h1 className="text-5xl font-semibold">
           Odontología de Calidad: <br />
