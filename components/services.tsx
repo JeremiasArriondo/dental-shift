@@ -1,9 +1,10 @@
 import Image from 'next/image'
 import { Card } from './card'
+import { Check } from 'lucide-react'
 
 export const Services = () => {
   return (
-    <section className="mx-4">
+    <section className="mx-4 my-4">
       <h2 className="text-3xl font-semibold my-4">Mis servicios</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Card
@@ -51,16 +52,29 @@ export const Services = () => {
           }}
         />
       </div>
+      <div>
+        <h3 className="text-2xl font-semibold my-4">Otros servicios</h3>
+        <ul className="grid md:grid-cols-2 gap-4">
+          <li className="flex items-center space-x-3">
+            <Check />
+            <span>Odontología niños y adultos</span>
+          </li>
+          <li className="flex items-center space-x-3">
+            <Check /> <span>Prótesis removible y fija</span>
+          </li>
+          <li className="flex items-center space-x-3">
+            <Check /> <span>Blanqueamiento</span>
+          </li>
+          <li className="flex items-center space-x-3">
+            <Check />
+            <span>Endodoncia mecanizada</span>
+          </li>
+          <li className="flex items-center space-x-3">
+            <Check />
+            <span>Limpieza con ultra</span>
+          </li>
+        </ul>
+      </div>
     </section>
   )
 }
-
-// Limpieza dental - ortodoncia - endodoncia - odontologia general
-/*
- odontologia general
- niño y adultos
- protesis removiblr y fija
- blanquamiento
- endodoncia mecanizada
- limpirza con ultra
-*/
