@@ -1,10 +1,9 @@
-import Image from 'next/image'
 import { Card } from './card'
 import { Check } from 'lucide-react'
 
 export const Services = () => {
   return (
-    <section className="mx-4 my-4">
+    <section className="max-w-screen-xl mx-auto p-8">
       <h2 className="text-3xl font-semibold my-4">Mis servicios</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Card

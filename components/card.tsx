@@ -13,8 +13,8 @@ type CardProps = {
 
 export const Card = ({ title, text, image }: CardProps) => {
   return (
-    <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-      <div className="max-h-44 h-44 overflow-hidden">
+    <div className="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <div className="max-h-64 h-64 overflow-hidden">
         <Image
           src={image.src}
           alt={image.alt}
