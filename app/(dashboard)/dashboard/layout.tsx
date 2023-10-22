@@ -37,7 +37,7 @@ export default async function DashboardLayout({
             items={[
               {
                 title: 'Turnos',
-                href: '/turnos',
+                href: '/dashboard/turnos',
                 icon: 'post'
               },
               {

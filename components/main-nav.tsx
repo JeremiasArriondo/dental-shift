@@ -8,6 +8,7 @@ import { siteConfig } from '@/config/site'
 import { cn } from '@/lib/utils'
 import { MobileNav } from '@/components/mobile-nav'
 import { X } from 'lucide-react'
+import Image from 'next/image'
 
 type MainNavItem = {
   title: string
@@ -27,7 +28,12 @@ export function MainNav({ items, children }: MainNavProps) {
   return (
     <div className="flex gap-6 md:gap-10">
       <Link href="/" className="hidden items-center space-x-2 md:flex">
-        {/* Logo */}
+        <Image
+          src="/images/logo-circle.webp"
+          height={24}
+          width={24}
+          alt="Eliana Ginocchio logo"
+        />
         <span className="hidden font-bold sm:inline-block">
           {siteConfig.name}
         </span>
@@ -55,7 +61,16 @@ export function MainNav({ items, children }: MainNavProps) {
         className="flex items-center space-x-2 md:hidden"
         onClick={() => setShowMobileMenu(!showMobileMenu)}
       >
-        {showMobileMenu ? <X /> : <span>LOGO</span>}
+        {showMobileMenu ? (
+          <X />
+        ) : (
+          <Image
+            src="/images/logo-circle.webp"
+            height={24}
+            width={24}
+            alt="Eliana Ginocchio logo"
+          />
+        )}
         <span className="font-bold">Menu</span>
       </button>
       {showMobileMenu && items && (
