@@ -21,14 +21,17 @@ export const Navbar = () => {
           <div>
             <ul className="flex flex-row font-medium mt-0 mr-6 space-x-8 text-sm">
               <li>
-                <a href="#" className="text-base hover:underline">
+                <Link href="/dashboard" className="text-base hover:underline">
                   Turnos
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-base hover:underline">
+                <Link
+                  href="/dashboard/admin"
+                  className="text-base hover:underline"
+                >
                   Admin
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

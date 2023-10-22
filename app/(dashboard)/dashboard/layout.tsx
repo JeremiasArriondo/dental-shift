@@ -19,14 +19,14 @@ export default async function DashboardLayout({
 
   return (
     <div className="flex min-h-screen flex-col space-y-6">
-      <header className="sticky top-0 z-40 border-b bg-background">
+      <header className="sticky top-0 z-40 border-b bg-bgColor">
         <div className="container flex h-16 items-center justify-between py-4">
           <MainNav items={[]} />
           <UserAccountNav
             user={{
               name: 'Jeremias',
               // image: user.image,
-              email: 'Arriondo'
+              email: 'jeremiasarriondo@gmail.com'
             }}
           />
         </div>
@@ -37,7 +37,7 @@ export default async function DashboardLayout({
             items={[
               {
                 title: 'Turnos',
-                href: '/dashboard/turnos',
+                href: '/dashboard',
                 icon: 'post'
               },
               {
