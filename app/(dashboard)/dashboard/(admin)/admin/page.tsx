@@ -7,9 +7,12 @@ import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { Database } from '@/types/database'
+import { Calendar } from '@/components/ui/calendar'
+import { SimpleCalendar } from '@/components/simple-calendar'
+import { ShiftList } from '@/components/shift-list'
 
 export const metadata = {
-  title: 'Dashboard'
+  title: 'Dashboard - Admin'
 }
 
 export default async function DashboardPage() {
@@ -27,30 +30,10 @@ export default async function DashboardPage() {
 
   return (
     <DashboardShell>
-      <DashboardHeader heading="Turnos" text="Agenda un turno">
-        {/* <ShiftCreateButton /> */}
-      </DashboardHeader>
-      <SelectShiftDay />
-      <div>
-        {/* TODO: Recorrrer turnos */}
-        {[]?.length ? (
-          <div className="divide-y divide-border rounded-md border">
-            <h3>Mis turnos:</h3>
-            {/* {posts.map((post) => (
-              <PostItem key={post.id} post={post} />
-            ))} */}
-          </div>
-        ) : (
-          <EmptyPlaceholder className="border-greenDark">
-            <EmptyPlaceholder.Title>
-              Ningún turno reservado
-            </EmptyPlaceholder.Title>
-            <EmptyPlaceholder.Description>
-              Puedes solicitar un turno con simples clicks
-            </EmptyPlaceholder.Description>
-            <ShiftCreateButton variant="outline" />
-          </EmptyPlaceholder>
-        )}
+      <DashboardHeader heading="Calendario" text="Agenda mensual" />
+      <div className="flex gap-8">
+        <SimpleCalendar />
+        <ShiftList />
       </div>
     </DashboardShell>
   )

@@ -1,8 +1,10 @@
-import { notFound } from 'next/navigation'
-// import { getCurrentUser } from "@/lib/session"
+import { redirect } from 'next/navigation'
 import { MainNav } from '@/components/main-nav'
 import { DashboardNav } from '@/components/nav'
 import { UserAccountNav } from '@/components/user-account-nav'
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
+import { Database } from '@/types/database'
+import { cookies } from 'next/headers'
 
 interface DashboardLayoutProps {
   children?: React.ReactNode
@@ -11,11 +13,14 @@ interface DashboardLayoutProps {
 export default async function DashboardLayout({
   children
 }: DashboardLayoutProps) {
-  // const user = await getCurrentUser()
+  const supabase = createServerComponentClient<Database>({ cookies })
+  const {
+    data: { session }
+  } = await supabase.auth.getSession()
 
-  // if (!user) {
-  //   return notFound()
-  // }
+  if (session === null) {
+    redirect('/login')
+  }
 
   return (
     <div className="flex min-h-screen flex-col space-y-6">
@@ -24,9 +29,9 @@ export default async function DashboardLayout({
           <MainNav items={[]} />
           <UserAccountNav
             user={{
-              name: 'Jeremias',
-              // image: user.image,
-              email: 'jeremiasarriondo@gmail.com'
+              name: session.user.user_metadata.name,
+              image: session.user.user_metadata.avatar_url,
+              email: session.user.email!
             }}
           />
         </div>
