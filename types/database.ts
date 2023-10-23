@@ -13,22 +13,28 @@ export interface Database {
         Row: {
           amount: number | null
           created_at: string
+          date: string
           description: string | null
           id: string
+          time: string
           user_id: string
         }
         Insert: {
           amount?: number | null
           created_at?: string
+          date: string
           description?: string | null
           id?: string
+          time: string
           user_id: string
         }
         Update: {
           amount?: number | null
           created_at?: string
+          date?: string
           description?: string | null
           id?: string
+          time?: string
           user_id?: string
         }
         Relationships: [
