@@ -44,10 +44,10 @@ export default async function DashboardLayout({
               {
                 title: 'Turnos',
                 href: '/dashboard',
-                icon: 'post'
+                icon: 'calendar'
               },
               {
-                title: 'Settings',
+                title: 'Datos personales',
                 href: '/dashboard/settings',
                 icon: 'settings'
               }

@@ -1,6 +1,7 @@
 import {
   AlertTriangle,
   ArrowRight,
+  Calendar,
   Check,
   ChevronLeft,
   ChevronRight,
@@ -28,6 +29,7 @@ import {
 export const Icons = {
   logo: Command,
   close: X,
+  calendar: Calendar,
   spinner: Loader2,
   chevronLeft: ChevronLeft,
   chevronRight: ChevronRight,
