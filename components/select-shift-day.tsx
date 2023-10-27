@@ -9,7 +9,7 @@ export const SelectShiftDay = () => {
     <div>
       <div className="my-4">
         <h3>Fecha:</h3>
-        <DatePicker date={date || new Date()} setDate={() => setDate} />
+        <DatePicker date={date || new Date()} setDate={setDate} />
       </div>
       <div>
         <h3>Horarios disponibles:</h3>
@@ -26,7 +26,9 @@ export const SelectShiftDay = () => {
             '16:30'
           ].map((hour) => (
             <li key={hour}>
-              <Button className="w-20">{hour}</Button>
+              <Button className="w-20" variant="secondary">
+                {hour}
+              </Button>
             </li>
           ))}
         </ul>
