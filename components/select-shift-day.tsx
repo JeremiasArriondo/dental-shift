@@ -2,17 +2,16 @@
 import React, { useState } from 'react'
 import { DatePicker } from './date-picker'
 import { Button } from './ui/button'
-import { Icons } from './icons'
 
 type TimeFormat = `${string}:${string}`
 
 export const SelectShiftDay = () => {
   const [date, setDate] = useState<Date | undefined>()
-  const [datetime, setDatetime] = useState<TimeFormat | undefined>()
+  const [hour, setHour] = useState<TimeFormat | undefined>()
 
-  const handleDatetime = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handlehour = (e: React.MouseEvent<HTMLButtonElement>) => {
     const value = (e.target as HTMLButtonElement).value
-    setDatetime(value as TimeFormat)
+    setHour(value as TimeFormat)
   }
 
   const handleSubmit = () => {
@@ -21,11 +20,11 @@ export const SelectShiftDay = () => {
     })
 
     console.log('FECHA: ', formatDate)
-    console.log('HORA: ', datetime)
+    console.log('HORA: ', hour)
   }
 
   const handleReset = () => {
-    setDatetime(undefined)
+    setHour(undefined)
     setDate(undefined)
   }
 
@@ -48,22 +47,22 @@ export const SelectShiftDay = () => {
             '14:30',
             '15:00',
             '16:30'
-          ].map((hour) => (
-            <li key={hour}>
+          ].map((eachHour) => (
+            <li key={eachHour}>
               <Button
                 className="w-20"
-                variant={hour === datetime ? 'default' : 'outline'}
-                value={hour}
-                onClick={handleDatetime}
+                variant={eachHour === hour ? 'default' : 'outline'}
+                value={eachHour}
+                onClick={handlehour}
               >
-                {hour}
+                {eachHour}
               </Button>
             </li>
           ))}
         </ul>
       </div>
       <div className="h-[40px] w-full md:w-[280px] flex gap-4">
-        {date && datetime && (
+        {date && hour && (
           <Button
             variant="secondary"
             className="w-full border border-bgColor bg-greenLigth"
@@ -72,7 +71,7 @@ export const SelectShiftDay = () => {
             Confirmar
           </Button>
         )}
-        {date && datetime && (
+        {date && hour && (
           <Button
             variant="outline"
             className="w-full border border-red-400 text-red-400"

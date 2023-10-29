@@ -15,8 +15,8 @@ export interface Database {
           created_at: string
           date: string
           description: string | null
+          hour: string
           id: string
-          time: string
           user_id: string
         }
         Insert: {
@@ -24,8 +24,8 @@ export interface Database {
           created_at?: string
           date: string
           description?: string | null
+          hour: string
           id?: string
-          time: string
           user_id: string
         }
         Update: {
@@ -33,8 +33,8 @@ export interface Database {
           created_at?: string
           date?: string
           description?: string | null
+          hour?: string
           id?: string
-          time?: string
           user_id?: string
         }
         Relationships: [
