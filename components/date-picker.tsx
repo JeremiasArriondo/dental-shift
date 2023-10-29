@@ -21,8 +21,9 @@ export function DatePicker({
   date?: Date
   setDate: React.Dispatch<React.SetStateAction<Date | undefined>>
 }) {
+  const [isCalendarOpen, setIsCalendarOpen] = React.useState(false)
   return (
-    <Popover>
+    <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
       <PopoverTrigger asChild>
         <Button
           variant={'outline'}
@@ -43,7 +44,10 @@ export function DatePicker({
         <Calendar
           mode="single"
           selected={date}
-          onSelect={setDate}
+          onSelect={(e) => {
+            setDate(e)
+            setIsCalendarOpen(false)
+          }}
           locale={es}
           initialFocus
         />

@@ -54,6 +54,7 @@ export const SelectShiftDay = () => {
                 variant={eachHour === hour ? 'default' : 'outline'}
                 value={eachHour}
                 onClick={handlehour}
+                disabled={!Boolean(date)}
               >
                 {eachHour}
               </Button>
