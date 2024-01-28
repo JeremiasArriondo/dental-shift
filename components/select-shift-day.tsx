@@ -14,13 +14,38 @@ export const SelectShiftDay = () => {
     setHour(value as TimeFormat)
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    if (!date || !hour) return
+
     const formatDate = date?.toLocaleDateString(undefined, {
       timeZone: 'America/Argentina/Buenos_Aires'
     })
 
-    console.log('FECHA: ', formatDate)
-    console.log('HORA: ', hour)
+    try {
+      const res = await fetch('/api/turno', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          description: 'Una descripción',
+          date: formatDate,
+          hour: hour
+        })
+      })
+
+      if (!res.ok) {
+        throw new Error(
+          res?.statusText || 'something went wrong trying to do the fetch'
+        )
+      }
+
+      const resToJson = await res.json()
+
+      console.log(resToJson)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const handleReset = () => {
