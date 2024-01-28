@@ -7,6 +7,7 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { Database } from '@/types/database'
 import { UserTurnosList } from '@/components/user-turnos-list'
+import { supabase as supabaseConnection } from '@/lib/connections/supabase'
 
 export const metadata = {
   title: 'Dashboard'
@@ -22,9 +23,11 @@ export default async function DashboardPage() {
     redirect('/login')
   }
 
+  const { data: turnos } = await supabaseConnection.from('turnos').select()
+
   return (
     <DashboardShell>
-      <DashboardHeader heading="Turnos" text="Agenda un turno">
+      <DashboardHeader heading="Turnos" text="Gestiona tus turnos">
         {/* @todo quizas implementar notificaciones/recordatorios */}
       </DashboardHeader>
       <Tabs defaultValue="new-shift" className="w-[600px]">
@@ -36,7 +39,7 @@ export default async function DashboardPage() {
           <SelectShiftDay />
         </TabsContent>
         <TabsContent value="my-shift">
-          <UserTurnosList />
+          <UserTurnosList turnos={turnos} />
         </TabsContent>
       </Tabs>
     </DashboardShell>

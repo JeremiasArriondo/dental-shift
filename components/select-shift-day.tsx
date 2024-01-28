@@ -2,12 +2,14 @@
 import React, { useState } from 'react'
 import { DatePicker } from './date-picker'
 import { Button } from './ui/button'
+import { useToast } from '@/components/ui/use-toast'
 
 type TimeFormat = `${string}:${string}`
 
 export const SelectShiftDay = () => {
   const [date, setDate] = useState<Date | undefined>()
   const [hour, setHour] = useState<TimeFormat | undefined>()
+  const { toast } = useToast()
 
   const handlehour = (e: React.MouseEvent<HTMLButtonElement>) => {
     const value = (e.target as HTMLButtonElement).value
@@ -43,6 +45,11 @@ export const SelectShiftDay = () => {
       const resToJson = await res.json()
     } catch (error) {
       console.log(error)
+    } finally {
+      toast({
+        title: 'Scheduled: Catch up',
+        description: 'Friday, February 10, 2023 at 5:57 PM'
+      })
     }
   }
 
