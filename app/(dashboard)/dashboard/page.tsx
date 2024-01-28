@@ -1,21 +1,18 @@
-import { EmptyPlaceholder } from '@/components/empty-placeholder'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { DashboardHeader } from '@/components/header'
-import { ShiftCreateButton } from '@/components/shift-create-button'
 import { DashboardShell } from '@/components/shell'
 import { SelectShiftDay } from '@/components/select-shift-day'
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { Database } from '@/types/database'
+import { UserTurnosList } from '@/components/user-turnos-list'
 
 export const metadata = {
   title: 'Dashboard'
 }
 
 export default async function DashboardPage() {
-  // TODO: obtener informacion del usuario
-  // TODO: Proteger ruta
-  // TODO: hacer query para obtener turnos
   const supabase = createServerComponentClient<Database>({ cookies })
   const {
     data: { session }
@@ -28,30 +25,20 @@ export default async function DashboardPage() {
   return (
     <DashboardShell>
       <DashboardHeader heading="Turnos" text="Agenda un turno">
-        {/* <ShiftCreateButton /> */}
+        {/* @todo quizas implementar notificaciones/recordatorios */}
       </DashboardHeader>
-      <SelectShiftDay />
-      <div>
-        {/* TODO: Recorrrer turnos */}
-        {[]?.length ? (
-          <div className="divide-y divide-border rounded-md border">
-            <h3>Mis turnos:</h3>
-            {/* {posts.map((post) => (
-              <PostItem key={post.id} post={post} />
-            ))} */}
-          </div>
-        ) : (
-          <EmptyPlaceholder className="border-greenDark">
-            <EmptyPlaceholder.Title>
-              Ningún turno reservado
-            </EmptyPlaceholder.Title>
-            <EmptyPlaceholder.Description>
-              Puedes solicitar un turno con simples clicks
-            </EmptyPlaceholder.Description>
-            <ShiftCreateButton variant="outline" />
-          </EmptyPlaceholder>
-        )}
-      </div>
+      <Tabs defaultValue="new-shift" className="w-[600px]">
+        <TabsList>
+          <TabsTrigger value="new-shift">Crear turno</TabsTrigger>
+          <TabsTrigger value="my-shift">Mis turnos</TabsTrigger>
+        </TabsList>
+        <TabsContent value="new-shift">
+          <SelectShiftDay />
+        </TabsContent>
+        <TabsContent value="my-shift">
+          <UserTurnosList />
+        </TabsContent>
+      </Tabs>
     </DashboardShell>
   )
 }
