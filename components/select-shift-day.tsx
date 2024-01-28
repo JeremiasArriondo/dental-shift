@@ -41,8 +41,6 @@ export const SelectShiftDay = () => {
       }
 
       const resToJson = await res.json()
-
-      console.log(resToJson)
     } catch (error) {
       console.log(error)
     }
