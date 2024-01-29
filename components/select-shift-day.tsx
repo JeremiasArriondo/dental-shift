@@ -42,14 +42,14 @@ export const SelectShiftDay = () => {
         )
       }
 
+      toast({
+        title: 'Turno agendado',
+        description: `Información: ${formatDate}, a las ${hour}`
+      })
+
       const resToJson = await res.json()
     } catch (error) {
       console.log(error)
-    } finally {
-      toast({
-        title: 'Scheduled: Catch up',
-        description: 'Friday, February 10, 2023 at 5:57 PM'
-      })
     }
   }
 
