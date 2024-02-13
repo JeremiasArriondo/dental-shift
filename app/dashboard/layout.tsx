@@ -25,7 +25,7 @@ export default async function DashboardLayout({
 
   return (
     <div className="flex min-h-screen flex-col space-y-6">
-      <header className="sticky top-0 z-40 border-b bg-bgColor">
+      <header className="sticky top-0 z-40 border-b bg-bgColor/60 backdrop-filter backdrop-blur-3xl backdrop-saturate-200">
         <div className="flex h-16 items-center justify-between py-4 px-8">
           <MainNav items={dashboardConfig.mainNav} />
           <UserAccountNav

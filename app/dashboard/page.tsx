@@ -22,7 +22,10 @@ export default async function DashboardTurnosPage() {
     redirect('/login')
   }
 
-  const { data: turnos } = await supabaseConnection.from('turnos').select()
+  const { data: turnos } = await supabaseConnection
+    .from('turnos')
+    .select()
+    .order('date', { ascending: false })
 
   return (
     <DashboardShell>

@@ -3,6 +3,8 @@ import React, { useState } from 'react'
 import { DatePicker } from './date-picker'
 import { Button } from './ui/button'
 import { useToast } from '@/components/ui/use-toast'
+import { Textarea } from './ui/textarea'
+import { formatDate } from '@/utils/formatDate'
 
 type TimeFormat = `${string}:${string}`
 
@@ -13,6 +15,7 @@ export const SelectShiftDay = ({
 }) => {
   const [date, setDate] = useState<Date | undefined>()
   const [hour, setHour] = useState<TimeFormat | undefined>()
+  const [contentAdd, setContentAdd] = useState('')
   const { toast } = useToast()
 
   const handlehour = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -23,10 +26,11 @@ export const SelectShiftDay = ({
   const handleSubmit = async () => {
     if (!date || !hour) return
 
-    const formatDate = date?.toLocaleDateString(undefined, {
+    const onlyDate = date?.toLocaleDateString(undefined, {
       timeZone: 'America/Argentina/Buenos_Aires'
     })
 
+    const appointment_date = formatDate(date, hour)
     try {
       const res = await fetch('/api/turno', {
         method: 'POST',
@@ -34,9 +38,10 @@ export const SelectShiftDay = ({
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          description: 'Una descripción',
-          date: formatDate,
-          hour: hour
+          description: contentAdd,
+          date: onlyDate,
+          hour: hour,
+          appointment_date: appointment_date
         })
       })
 
@@ -48,7 +53,7 @@ export const SelectShiftDay = ({
 
       toast({
         title: 'Turno agendado',
-        description: `Información: ${formatDate}, a las ${hour}`
+        description: `Información: ${onlyDate}, a las ${hour}`
       })
       const resToJson = await res.json()
     } catch (error) {
@@ -79,8 +84,8 @@ export const SelectShiftDay = ({
         </h3>
         <ul className="flex flex-wrap gap-2">
           {[
-            '9:00',
-            '9:30',
+            '09:00',
+            '09:30',
             '10:00',
             '10:30',
             '11:00',
@@ -103,6 +108,11 @@ export const SelectShiftDay = ({
           ))}
         </ul>
       </div>
+      <Textarea
+        placeholder="¿Quieres añadir información adicional?"
+        value={contentAdd}
+        onChange={(e) => setContentAdd(e.target.value)}
+      />
       <div className="h-[40px] w-full md:w-[280px] flex gap-4">
         <Button
           variant="secondary"

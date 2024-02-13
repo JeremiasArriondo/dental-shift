@@ -19,7 +19,7 @@ export async function POST(request: NextRequest, { params }: { params: any }) {
     currentUser = userResponse.user as User
   }
 
-  const { description, date, hour } = await request.json()
+  const { description, date, hour, appointment_date } = await request.json()
 
   // @ts-ignore
   const { data, error } = await supabase.from('turnos').insert(
@@ -28,7 +28,8 @@ export async function POST(request: NextRequest, { params }: { params: any }) {
       amount: 3001,
       date,
       hour,
-      user_id: currentUser.id
+      user_id: currentUser.id,
+      appointment_date
     },
     {
       returning: 'minimal'
