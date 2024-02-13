@@ -1,4 +1,3 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { DashboardHeader } from '@/components/header'
 import { DashboardShell } from '@/components/shell'
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
@@ -30,21 +29,7 @@ export default async function DashboardTurnosPage() {
       <DashboardHeader
         heading="Turnos"
         text="En esta sección puedes gestionar tus turnos"
-      >
-        {/* @todo quizas implementar notificaciones/recordatorios */}
-      </DashboardHeader>
-      {/* <Tabs defaultValue="new-shift" className="w-[600px]">
-        <TabsList>
-          <TabsTrigger value="new-shift">Crear turno</TabsTrigger>
-          <TabsTrigger value="my-shift">Mis turnos</TabsTrigger>
-        </TabsList>
-        <TabsContent value="new-shift">
-          <SelectShiftDay />
-        </TabsContent>
-        <TabsContent value="my-shift">
-          <UserTurnosList turnos={turnos} />
-        </TabsContent>
-      </Tabs> */}
+      ></DashboardHeader>
       <DrawerShift />
       <UserTurnosList turnos={turnos} />
     </DashboardShell>
