@@ -49,7 +49,11 @@ export const SelectShiftDay = () => {
 
       const resToJson = await res.json()
     } catch (error) {
-      console.log(error)
+      toast({
+        title: 'Oops! Ocurrió un error',
+        description:
+          'El turno no pudo ser reservado, volvé a intentar más tarde'
+      })
     }
   }
 
@@ -61,11 +65,13 @@ export const SelectShiftDay = () => {
   return (
     <div className="flex flex-col gap-4">
       <div>
-        <h3 className="mb-2 text-muted-foreground">Fecha:</h3>
+        <h3 className="text-sm mb-2 text-muted-foreground">Fecha:</h3>
         <DatePicker date={date} setDate={setDate} />
       </div>
       <div>
-        <h3 className="mb-2 text-muted-foreground">Horarios disponibles:</h3>
+        <h3 className="text-sm mb-2 text-muted-foreground">
+          Horarios disponibles:
+        </h3>
         <ul className="flex flex-wrap gap-2">
           {[
             '9:00',
@@ -93,24 +99,22 @@ export const SelectShiftDay = () => {
         </ul>
       </div>
       <div className="h-[40px] w-full md:w-[280px] flex gap-4">
-        {date && hour && (
-          <Button
-            variant="secondary"
-            className="w-full border border-bgColor bg-greenLigth"
-            onClick={handleSubmit}
-          >
-            Confirmar
-          </Button>
-        )}
-        {date && hour && (
-          <Button
-            variant="outline"
-            className="w-full border border-red-400 text-red-400"
-            onClick={handleReset}
-          >
-            Cancelar
-          </Button>
-        )}
+        <Button
+          variant="secondary"
+          className="w-full border border-bgColor bg-greenLigth"
+          onClick={handleSubmit}
+          disabled={!Boolean(hour)}
+        >
+          Confirmar
+        </Button>
+        <Button
+          variant="outline"
+          className="w-full border border-red-400 text-red-400"
+          onClick={handleReset}
+          disabled={!Boolean(hour)}
+        >
+          Cancelar
+        </Button>
       </div>
     </div>
   )
