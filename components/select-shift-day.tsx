@@ -6,7 +6,11 @@ import { useToast } from '@/components/ui/use-toast'
 
 type TimeFormat = `${string}:${string}`
 
-export const SelectShiftDay = () => {
+export const SelectShiftDay = ({
+  closeDrawer
+}: {
+  closeDrawer: () => void
+}) => {
   const [date, setDate] = useState<Date | undefined>()
   const [hour, setHour] = useState<TimeFormat | undefined>()
   const { toast } = useToast()
@@ -46,7 +50,6 @@ export const SelectShiftDay = () => {
         title: 'Turno agendado',
         description: `Información: ${formatDate}, a las ${hour}`
       })
-
       const resToJson = await res.json()
     } catch (error) {
       toast({
@@ -54,6 +57,8 @@ export const SelectShiftDay = () => {
         description:
           'El turno no pudo ser reservado, volvé a intentar más tarde'
       })
+    } finally {
+      closeDrawer()
     }
   }
 
