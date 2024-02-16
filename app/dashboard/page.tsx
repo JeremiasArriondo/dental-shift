@@ -21,11 +21,11 @@ export default async function DashboardTurnosPage() {
   if (session === null) {
     redirect('/login')
   }
-
+  // @todo filtrar por usuario
   const { data: turnos } = await supabaseConnection
     .from('turnos')
     .select()
-    .order('date', { ascending: false })
+    .order('appointment_date', { ascending: false })
 
   return (
     <DashboardShell>
