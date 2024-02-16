@@ -4,7 +4,7 @@ export const dashboardConfig: DashboardConfig = {
   mainNav: [
     {
       title: 'Mis turnos',
-      href: '/dashboard'
+      href: '/dashboard/turnos'
     },
     {
       title: 'Datos personales',
@@ -14,7 +14,7 @@ export const dashboardConfig: DashboardConfig = {
   sidebarNav: [
     {
       title: 'Mis turnos',
-      href: '/dashboard',
+      href: '/dashboard/turnos',
       icon: 'calendar'
     },
     {

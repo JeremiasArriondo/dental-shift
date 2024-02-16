@@ -41,7 +41,7 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
         </div>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <Link href="/dashboard">Mis turnos</Link>
+          <Link href="/dashboard/turnos">Mis turnos</Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <Link href="/dashboard/settings">Mis datos personales</Link>
