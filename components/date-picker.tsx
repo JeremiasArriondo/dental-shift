@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { format } from 'date-fns'
+import { format, subDays } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { Calendar as CalendarIcon } from 'lucide-react'
 
@@ -48,6 +48,7 @@ export function DatePicker({
             setDate(e)
             setIsCalendarOpen(false)
           }}
+          disabled={(date) => date <= subDays(new Date(), 1)}
           locale={es}
           initialFocus
         />
