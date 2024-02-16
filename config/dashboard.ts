@@ -11,6 +11,20 @@ export const dashboardConfig: DashboardConfig = {
       href: '/dashboard/settings'
     }
   ],
+  adminNav: [
+    {
+      title: 'Calendario',
+      href: '/dashboard/admin'
+    },
+    {
+      title: 'Configurar turnos',
+      href: '/dashboard/admin/settings'
+    },
+    {
+      title: 'Historiales clínicos',
+      href: '/dashboard/admin/history'
+    }
+  ],
   sidebarNav: [
     {
       title: 'Mis turnos',

@@ -25,9 +25,9 @@ export default async function DashboardLayout({
 
   return (
     <div className="flex min-h-screen flex-col space-y-6">
-      <header className="sticky top-0 z-40 border-b bg-bgColor/60 backdrop-filter backdrop-blur-3xl backdrop-saturate-200">
+      <header className="sticky top-0 z-40 border-b bg-bgColor backdrop-filter backdrop-blur-3xl backdrop-saturate-200">
         <div className="flex h-16 items-center justify-between py-4 px-8">
-          <MainNav items={dashboardConfig.mainNav} />
+          <MainNav items={dashboardConfig.adminNav} />
           <UserAccountNav
             user={{
               name: session.user.user_metadata.name,
@@ -40,7 +40,7 @@ export default async function DashboardLayout({
 
       <div className="grid mx-8 gap-12 md:grid-cols-[200px_1fr]">
         <aside className="hidden w-[200px] flex-col md:flex">
-          <DashboardNav items={dashboardConfig.sidebarNav} />
+          <DashboardNav items={dashboardConfig.adminNav} />
         </aside>
         <main className="flex w-full flex-1 flex-col overflow-hidden">
           {children}
