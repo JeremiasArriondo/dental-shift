@@ -10,7 +10,7 @@
     "lint:fix": "next lint --fix",
     "format": "prettier . --check",
     "format:fix": "prettier . --write",
-    "gen:types": "npx supabase gen types typescript --project-id utzmywchwtpppwljwdjq > ./types/database.ts"
+    "gen:types": "npx supabase gen types typescript --project-id tebymskgmvhcfptgugdw > ./types/database.ts"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.0.4",
