@@ -1,12 +1,12 @@
 import { CalendarCheck } from 'lucide-react'
 
-export const UserTurnosList = ({ turnos }: { turnos: any }) => {
+export const UserTurnosList = ({ turnos = [] }: { turnos: any }) => {
   return (
     <div>
       <h3 className="text-lg text-muted-foreground mb-2">
         Historial de turnos:
       </h3>
-      {turnos.length > 0 ? (
+      {turnos && turnos.length > 0 ? (
         <ol className="relative ml-4 border-s border-gray-200">
           {turnos.map(({ date, hour, description }) => (
             <li className="mb-10 ms-8" key={turnos.id}>

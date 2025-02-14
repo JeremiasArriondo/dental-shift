@@ -6,7 +6,7 @@ import { useToast } from '@/components/ui/use-toast'
 import { Textarea } from './ui/textarea'
 import { formatDate } from '@/utils/formatDate'
 
-type TimeFormat = `${string}:${string}`
+type TimeFormat = `${string}:${string}:${string}`
 
 export const SelectShiftDay = ({
   closeDrawer
@@ -26,11 +26,12 @@ export const SelectShiftDay = ({
   const handleSubmit = async () => {
     if (!date || !hour) return
 
-    const onlyDate = date?.toLocaleDateString(undefined, {
+    const onlyDate = date?.toLocaleDateString('en-CA', {
       timeZone: 'America/Argentina/Buenos_Aires'
     })
 
     const appointment_date = formatDate(date, hour)
+
     try {
       const res = await fetch('/api/turno', {
         method: 'POST',
@@ -97,8 +98,8 @@ export const SelectShiftDay = ({
             <li key={eachHour}>
               <Button
                 className="w-20"
-                variant={eachHour === hour ? 'default' : 'outline'}
-                value={eachHour}
+                variant={eachHour + ':00' === hour ? 'default' : 'outline'}
+                value={eachHour + ':00'}
                 onClick={handlehour}
                 disabled={!Boolean(date)}
               >
