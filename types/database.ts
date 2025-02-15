@@ -11,25 +11,34 @@ export type Database = {
     Tables: {
       turnos: {
         Row: {
+          amount: number | null
+          appointment_date: string | null
           created_at: string
           date: string | null
           description: string | null
+          hour: string | null
           id: string
           update_at: string | null
           user_id: string
         }
         Insert: {
+          amount?: number | null
+          appointment_date?: string | null
           created_at?: string
           date?: string | null
           description?: string | null
+          hour?: string | null
           id?: string
           update_at?: string | null
           user_id: string
         }
         Update: {
+          amount?: number | null
+          appointment_date?: string | null
           created_at?: string
           date?: string | null
           description?: string | null
+          hour?: string | null
           id?: string
           update_at?: string | null
           user_id?: string

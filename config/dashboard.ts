@@ -17,6 +17,10 @@ export const dashboardConfig: DashboardConfig = {
       href: '/dashboard/admin'
     },
     {
+      title: 'Pacientes',
+      href: '/dashboard/admin/pacients'
+    },
+    {
       title: 'Configurar turnos',
       href: '/dashboard/admin/settings'
     },
