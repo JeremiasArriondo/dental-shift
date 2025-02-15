@@ -1,18 +1,20 @@
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { DashboardHeader } from '@/components/header'
 import { DashboardShell } from '@/components/shell'
+import { SelectShiftDay } from '@/components/select-shift-day'
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { Database } from '@/types/database'
 import { UserTurnosList } from '@/components/user-turnos-list'
 import { supabase as supabaseConnection } from '@/lib/connections/supabase'
-import { DrawerShift } from '@/components/drawer-shift'
+import { UserList } from '@/components/user-list'
 
 export const metadata = {
-  title: 'Dashboard'
+  title: 'Mis datos personales'
 }
 
-export default async function DashboardTurnosPage() {
+export default async function PacientsPage() {
   const supabase = createServerComponentClient<Database>({ cookies })
   const {
     data: { session }
@@ -22,20 +24,15 @@ export default async function DashboardTurnosPage() {
     redirect('/login')
   }
 
-  const { data: turnos } = await supabaseConnection
-    .from('turnos')
-    .select('*, users(*)')
-    .eq('user_id', session.user.id)
-    .order('appointment_date', { ascending: false })
+  const { data: users } = await supabaseConnection.from('users').select()
 
   return (
     <DashboardShell>
       <DashboardHeader
-        heading="Turnos"
-        text="En esta sección puedes gestionar tus turnos"
-      ></DashboardHeader>
-      <DrawerShift />
-      <UserTurnosList turnos={turnos} />
+        heading="Pacientes"
+        text="Lista de los pacientes activos"
+      />
+      <UserList users={users} />
     </DashboardShell>
   )
 }

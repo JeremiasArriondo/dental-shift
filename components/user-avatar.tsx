@@ -6,8 +6,8 @@ import { Icons } from '@/components/icons'
 
 interface UserAvatarProps extends AvatarProps {
   user: {
-    image: 'string'
-    name: 'string'
+    image: string
+    name: string
   }
 }
 

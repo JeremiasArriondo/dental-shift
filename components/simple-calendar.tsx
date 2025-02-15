@@ -1,19 +1,21 @@
 'use client'
-import React, { useState } from 'react'
+import React from 'react'
 import { Calendar } from './ui/calendar'
 import { es } from 'date-fns/locale'
 
-export const SimpleCalendar = () => {
-  const [date, setDate] = useState<Date>()
+type SimpleCalendarType = {
+  date: Date
+  setDate: React.Dispatch<React.SetStateAction<Date | undefined>>
+}
+
+export const SimpleCalendar = ({ date, setDate }: SimpleCalendarType) => {
   return (
-    <>
-      <Calendar
-        mode="single"
-        selected={date}
-        onSelect={setDate}
-        locale={es}
-        initialFocus
-      />
-    </>
+    <Calendar
+      mode="single"
+      selected={date}
+      onSelect={setDate}
+      locale={es}
+      initialFocus
+    />
   )
 }
