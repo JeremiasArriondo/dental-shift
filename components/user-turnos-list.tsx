@@ -27,9 +27,6 @@ export const UserTurnosList = ({ turnos = [] }: { turnos: any }) => {
         </ol>
       ) : (
         <div>
-          <h3 className="text-lg text-muted-foreground">
-            Historial de turnos:
-          </h3>
           <p>Acá apareceran tus turnos cuando agendes uno</p>
         </div>
       )}

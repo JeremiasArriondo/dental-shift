@@ -1,38 +1,51 @@
 import { UserAvatar } from './user-avatar'
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow
+} from '@/components/ui/table'
 
 export const UserList = ({ users = [] }: { users: any }) => {
   return (
-    <ul role="list" className="divide-y divide-gray-100">
-      {users && users.length > 0 ? (
-        users.map((user) => (
-          <li className="flex justify-between gap-x-6 py-5">
-            <div className="flex min-w-0 gap-x-4">
-              <UserAvatar
-                user={{
-                  name: user.name,
-                  image: user.avatar_url
-                }}
-                className="h-16 w-16"
-              />
-              <div className="min-w-0 flex-auto">
-                <p className="text-sm/6 font-semibold text-gray-900">
-                  {user.name}
-                </p>
-                <p className="mt-1 truncate text-xs/5 text-gray-500">
-                  {user.email}
-                </p>
-              </div>
-            </div>
-            <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-              <p className="text-sm/6 text-gray-900">Ver turnos reservados</p>
-            </div>
-          </li>
-        ))
-      ) : (
-        <div>
-          <p>Ningún usuario cargado</p>
-        </div>
-      )}
-    </ul>
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead className="w-[100px]">Avatar</TableHead>
+          <TableHead>Nombre</TableHead>
+          <TableHead>Email</TableHead>
+          <TableHead>Obra social</TableHead>
+          <TableHead>Turnos</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {users && users.length > 0 ? (
+          users.map((user) => (
+            <TableRow key={user.id}>
+              <TableCell className="font-medium">
+                <UserAvatar
+                  user={{
+                    name: user.name,
+                    image: user.avatar_url
+                  }}
+                  className="h-12 w-12"
+                />
+              </TableCell>
+              <TableCell>{user.name}</TableCell>
+              <TableCell>{user.email}</TableCell>
+              <TableCell>{user.obra_social.sigla}</TableCell>
+              <TableCell className="text-right">-</TableCell>
+            </TableRow>
+          ))
+        ) : (
+          <div>
+            <p>Ningún usuario cargado</p>
+          </div>
+        )}
+      </TableBody>
+    </Table>
   )
 }

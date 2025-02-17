@@ -24,7 +24,9 @@ export default async function PacientsPage() {
     redirect('/login')
   }
 
-  const { data: users } = await supabaseConnection.from('users').select()
+  const { data: users } = await supabaseConnection
+    .from('users')
+    .select('*, obra_social(*)')
 
   return (
     <DashboardShell>
