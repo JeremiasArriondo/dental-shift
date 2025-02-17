@@ -2,7 +2,6 @@ import { UserAvatar } from './user-avatar'
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,

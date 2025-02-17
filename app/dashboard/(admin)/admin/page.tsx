@@ -40,9 +40,7 @@ export default async function DashboardPage() {
   return (
     <DashboardShell>
       <DashboardHeader heading="Calendario" text="Agenda mensual" />
-      <div className="flex gap-8">
-        <ShiftListFilter />
-      </div>
+      <ShiftListFilter />
     </DashboardShell>
   )
 }
