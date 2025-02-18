@@ -18,9 +18,9 @@ module.exports = {
     },
     extend: {
       colors: {
-        bgColor: '#DCF0E4',
-        greenDark: '#6B8B85',
-        greenLigth: '#EEFCFD',
+        bgColor: '#B8E6D3',
+        greenDark: '#4F7268 ',
+        greenLigth: '#D6F9F4 ',
         pinkDark: '#F480EF',
         pinkLigth: '#FFE6FF',
         border: 'hsl(var(--border))',
