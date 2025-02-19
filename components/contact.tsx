@@ -2,7 +2,7 @@ import { Facebook, Instagram, MessageCircle } from 'lucide-react'
 
 export const Contact = () => {
   return (
-    <section className="bg-greenLigth">
+    <section className="bg-teal-50">
       <div className="max-w-screen-xl mx-auto p-8 flex flex-col">
         <h2 className="text-3xl font-semibold mt-4 mb-2">Contacto</h2>
         <div className="grid md:grid-cols-2 w-full">

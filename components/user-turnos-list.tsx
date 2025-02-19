@@ -16,7 +16,7 @@ export const UserTurnosList = ({ turnos = [] }: { turnos: any }) => {
               <h3 className="mb-1 text-lg font-semibold text-gray-900">
                 {date}
               </h3>
-              <time className="block mb-2 text-sm font-normal leading-none text-gray-400">
+              <time className="block mb-2 text-sm font-normal leading-none text-gray-600">
                 Horario: {hour}hs
               </time>
               <p className="text-base font-normal text-gray-500">
