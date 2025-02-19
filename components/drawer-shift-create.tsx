@@ -12,7 +12,7 @@ import {
 import { SelectShiftDay } from './select-shift-day'
 import { useState } from 'react'
 
-export const DrawerShift = () => {
+export const DrawerShiftCreate = () => {
   const [open, setOpen] = useState(false)
 
   const closeDrawer = () => setOpen(false)
@@ -37,7 +37,7 @@ export const DrawerShift = () => {
             </DrawerDescription>
           </DrawerHeader>
           <div className="m-4">
-            <SelectShiftDay closeDrawer={closeDrawer} />
+            <SelectShiftDay closeDrawer={closeDrawer} action="create" />
           </div>
         </div>
       </DrawerContent>

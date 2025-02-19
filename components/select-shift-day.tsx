@@ -9,13 +9,17 @@ import { formatDate } from '@/utils/formatDate'
 type TimeFormat = `${string}:${string}:${string}`
 
 export const SelectShiftDay = ({
-  closeDrawer
+  closeDrawer,
+  action,
+  id
 }: {
   closeDrawer: () => void
+  action: 'create' | 'update'
+  id?: string
 }) => {
   const [date, setDate] = useState<Date | undefined>()
   const [hour, setHour] = useState<TimeFormat | undefined>()
-  const [contentAdd, setContentAdd] = useState('')
+  const [description, setDescription] = useState('')
   const { toast } = useToast()
 
   const handlehour = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -39,9 +43,9 @@ export const SelectShiftDay = ({
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          description: contentAdd,
+          description,
           date: onlyDate,
-          hour: hour,
+          hour,
           appointment_date: appointment_date
         })
       })
@@ -56,12 +60,43 @@ export const SelectShiftDay = ({
         title: 'Turno agendado',
         description: `Información: ${onlyDate}, a las ${hour}`
       })
-      const resToJson = await res.json()
     } catch (error) {
       toast({
         title: 'Oops! Ocurrió un error',
         description:
           'El turno no pudo ser reservado, volvé a intentar más tarde'
+      })
+    } finally {
+      closeDrawer()
+    }
+  }
+
+  const editTurno = async ({ id }: { id?: string }) => {
+    try {
+      const res = await fetch('/api/turno', {
+        method: 'PUT',
+        body: JSON.stringify({
+          id,
+          date,
+          hour,
+          description
+        })
+      })
+
+      if (!res.ok) throw new Error(res?.statusText)
+
+      const onlyDate = date?.toLocaleDateString('en-CA', {
+        timeZone: 'America/Argentina/Buenos_Aires'
+      })
+      toast({
+        title: 'Turno actualizado',
+        description: `${onlyDate}, a las ${hour}`
+      })
+    } catch (error) {
+      toast({
+        title: 'Oops! Ocurrió un error',
+        description:
+          'El turno no pude ser modificado, volvé a intentar más tarde'
       })
     } finally {
       closeDrawer()
@@ -111,14 +146,14 @@ export const SelectShiftDay = ({
       </div>
       <Textarea
         placeholder="¿Quieres añadir información adicional?"
-        value={contentAdd}
-        onChange={(e) => setContentAdd(e.target.value)}
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
       />
       <div className="h-[40px] w-full md:w-[280px] flex gap-4">
         <Button
           variant="secondary"
           className="w-full border border-bgColor bg-greenLigth"
-          onClick={handleSubmit}
+          onClick={action === 'create' ? handleSubmit : () => editTurno({ id })}
           disabled={!Boolean(hour)}
         >
           Confirmar
