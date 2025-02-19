@@ -5,7 +5,7 @@ import Link from 'next/link'
 export const Navbar = () => {
   return (
     <header className="z-50 sticky top-0">
-      <nav className="bg-bgColor supports-backdrop-blur:bg-background/60 sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
+      <nav className="supports-backdrop-blur:bg-background/60 sticky top-0 z-50 w-full border-b bg-background/60 backdrop-blur">
         <div className="flex flex-wrap gap-y-2 md:gap-0 justify-between items-center mx-auto max-w-screen-xl px-8 py-4">
           <Link href="/" className="flex items-center gap-2">
             <Image
