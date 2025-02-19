@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation'
 import { Database } from '@/types/database'
 import { UserTurnosList } from '@/components/user-turnos-list'
 import { supabase as supabaseConnection } from '@/lib/connections/supabase'
-import { DrawerShift } from '@/components/drawer-shift'
+import { DrawerShiftCreate } from '@/components/drawer-shift-create'
 
 export const metadata = {
   title: 'Dashboard'
@@ -34,7 +34,7 @@ export default async function DashboardTurnosPage() {
         heading="Turnos"
         text="En esta sección puedes gestionar tus turnos"
       ></DashboardHeader>
-      <DrawerShift />
+      <DrawerShiftCreate />
       <UserTurnosList turnos={turnos} />
     </DashboardShell>
   )

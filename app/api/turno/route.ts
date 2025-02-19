@@ -36,42 +36,35 @@ export async function POST(request: NextRequest, { params }: { params: any }) {
     }
   )
 
-  return NextResponse.json(currentUser, {
+  return NextResponse.json(data, {
     status: 200
   })
 }
 
 export async function PUT(request: NextRequest) {
-  const supabaseCookie = createRouteHandlerClient({ cookies })
+  const { id, description, date, hour } = await request.json()
 
-  const {
-    data: { session: cookieSession }
-  } = await supabaseCookie.auth.getSession()
-
-  let currentUser = cookieSession?.user
-  if (!currentUser) {
-    const headersList = headers()
-    const authorization = headersList.get('authorization')
-    const [bearer, token] = authorization?.split(' ') as string[]
-    const { data: userResponse } = await supabaseCookie.auth.getUser(token)
-    currentUser = userResponse.user as User
+  if (!id) {
+    return NextResponse.json(
+      { error: 'El id es requerido para a ctualizar el turno' },
+      { status: 400 }
+    )
   }
 
-  const { id, description, date, hour, appointment_date } = await request.json()
-
-  // @ts-ignore
   const { data, error } = await supabase
     .from('turnos')
     .update({
       description,
       date,
-      hour,
-      user_id: currentUser.id,
-      appointment_date
+      hour
     })
     .eq('id', id)
 
-  return NextResponse.json(currentUser, {
-    status: 201
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 400 })
+  }
+
+  return NextResponse.json(data, {
+    status: 200
   })
 }
