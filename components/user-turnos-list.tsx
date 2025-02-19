@@ -1,6 +1,6 @@
 'use client'
 
-import { CalendarCheck, CalendarPlus, Pencil, Trash } from 'lucide-react'
+import { CalendarCheck, Trash } from 'lucide-react'
 import {
   Card,
   CardContent,
@@ -10,14 +10,31 @@ import {
 } from './ui/card'
 import { Button } from './ui/button'
 import { supabase } from '@/lib/connections/supabase'
-import { toast } from './ui/use-toast'
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from '@/components/ui/dialog'
 
 import { DrawerShiftUpdate } from './drawer-shift-update'
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 export const UserTurnosList = ({ turnos = [] }: { turnos: any }) => {
+  const [open, setOpen] = useState(false)
+
+  const router = useRouter()
+
   const deleteTurno = async (id: string) => {
-    const res = await supabase.from('turnos').delete().eq('id', id)
-    console.log(res)
+    const { error } = await supabase.from('turnos').delete().eq('id', id)
+    console.log({ error })
+    if (!error) {
+      router.refresh()
+    }
   }
 
   return (
@@ -45,13 +62,33 @@ export const UserTurnosList = ({ turnos = [] }: { turnos: any }) => {
                   </time>
                   <div className="flex gap-2">
                     <DrawerShiftUpdate id={id} />
-                    <Button
-                      variant="destructive"
-                      onClick={() => deleteTurno(id)}
-                    >
-                      <Trash className="mr-2" color="#ffffff" />
-                      Eliminar
-                    </Button>
+
+                    <Dialog open={open} onOpenChange={setOpen}>
+                      <DialogTrigger asChild>
+                        <Button variant="destructive">
+                          <Trash className="mr-2" color="#ffffff" />
+                          Eliminar
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="">
+                        <DialogHeader>
+                          <DialogTitle>
+                            Realmente quieres eliminar el turno?
+                          </DialogTitle>
+                          <DialogDescription>
+                            Recuerda que puedes elegir el turno que mejor te
+                            convenga
+                          </DialogDescription>
+                        </DialogHeader>
+                        <Button
+                          variant="destructive"
+                          onClick={() => deleteTurno(id)}
+                        >
+                          <Trash className="mr-2" color="#ffffff" />
+                          Eliminar
+                        </Button>
+                      </DialogContent>
+                    </Dialog>
                   </div>
                 </CardContent>
               </Card>

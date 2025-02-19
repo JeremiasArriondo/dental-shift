@@ -5,6 +5,7 @@ import { Button } from './ui/button'
 import { useToast } from '@/components/ui/use-toast'
 import { Textarea } from './ui/textarea'
 import { formatDate } from '@/utils/formatDate'
+import { useRouter } from 'next/navigation'
 
 type TimeFormat = `${string}:${string}:${string}`
 
@@ -21,6 +22,8 @@ export const SelectShiftDay = ({
   const [hour, setHour] = useState<TimeFormat | undefined>()
   const [description, setDescription] = useState('')
   const { toast } = useToast()
+
+  const router = useRouter()
 
   const handlehour = (e: React.MouseEvent<HTMLButtonElement>) => {
     const value = (e.target as HTMLButtonElement).value
@@ -60,6 +63,8 @@ export const SelectShiftDay = ({
         title: 'Turno agendado',
         description: `Información: ${onlyDate}, a las ${hour}`
       })
+
+      router.refresh()
     } catch (error) {
       toast({
         title: 'Oops! Ocurrió un error',
@@ -92,6 +97,7 @@ export const SelectShiftDay = ({
         title: 'Turno actualizado',
         description: `${onlyDate}, a las ${hour}`
       })
+      router.refresh()
     } catch (error) {
       toast({
         title: 'Oops! Ocurrió un error',
