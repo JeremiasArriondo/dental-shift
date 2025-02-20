@@ -34,7 +34,6 @@ export default async function DashboardSettingsPage() {
     .from('obra_social')
     .select('*')
 
-  console.log({ user })
   return (
     <DashboardShell>
       <DashboardHeader

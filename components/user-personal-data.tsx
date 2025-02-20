@@ -21,6 +21,8 @@ import {
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { useToast } from './ui/use-toast'
+import { useRouter } from 'next/navigation'
 
 export const UserPersonalData = ({
   user,
@@ -31,9 +33,47 @@ export const UserPersonalData = ({
 }) => {
   const [selectedOption, setSelectedOption] = useState(user.obra_social_id)
   const [fullName, setFullName] = useState(user.name || '')
+  const { toast } = useToast()
 
-  const savePersonalData = () => {
-    console.log(fullName)
+  const router = useRouter()
+
+  const savePersonalData = async () => {
+    if (!fullName || fullName.length < 3) {
+      toast({
+        title: 'Datos inválidos',
+        description: 'El nombre debe tener al menos 3 caracteres.'
+      })
+      return
+    }
+
+    try {
+      const res = await fetch('/api/user', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: fullName,
+          obraSocialId: selectedOption
+        })
+      })
+
+      if (!res.ok) {
+        throw new Error(res?.statusText || 'faild to update user data')
+      }
+
+      toast({
+        title: 'Datos personales',
+        description: `Información: tus datos fueron guardados`
+      })
+
+      router.refresh()
+    } catch (error) {
+      toast({
+        title: 'Oops! Ocurrió un error',
+        description: 'Tus datos no pudieron guardarse'
+      })
+    }
   }
 
   return (

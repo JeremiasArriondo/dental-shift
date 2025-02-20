@@ -3,38 +3,30 @@ import { User, createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
 import { cookies, headers } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 
-export async function POST(request: NextRequest, { params }: { params: any }) {
-  const supabaseCookie = createRouteHandlerClient({ cookies })
+export async function POST(request: NextRequest) {
+  const supabase = createRouteHandlerClient({ cookies })
 
   const {
-    data: { session: cookieSession }
-  } = await supabaseCookie.auth.getSession()
+    data: { user },
+    error: sessionError
+  } = await supabase.auth.getUser()
 
-  let currentUser = cookieSession?.user
-  if (!currentUser) {
-    const headersList = headers()
-    const authorization = headersList.get('authorization')
-    const [, token] = authorization?.split(' ') as string[]
-    const { data: userResponse } = await supabaseCookie.auth.getUser(token)
-    currentUser = userResponse.user as User
+  if (sessionError || !user) {
+    return NextResponse.json(
+      { error: 'User is not authenticated' },
+      { status: 401 }
+    )
   }
-
   const { description, date, hour, appointment_date } = await request.json()
 
-  // @ts-ignore
-  const { data, error } = await supabase.from('turnos').insert(
-    {
-      description,
-      amount: 0,
-      date,
-      hour,
-      user_id: currentUser.id,
-      appointment_date
-    },
-    {
-      returning: 'minimal'
-    }
-  )
+  const { data, error } = await supabase.from('turnos').insert({
+    description,
+    amount: 0,
+    date,
+    hour,
+    user_id: user.id,
+    appointment_date
+  })
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 })
@@ -50,7 +42,7 @@ export async function PUT(request: NextRequest) {
 
   if (!id) {
     return NextResponse.json(
-      { error: 'El id es requerido para a ctualizar el turno' },
+      { error: 'El id es requerido para actualizar el turno' },
       { status: 400 }
     )
   }

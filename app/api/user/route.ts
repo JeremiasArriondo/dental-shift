@@ -1,35 +1,33 @@
-import { createRouteHandlerClient, User } from '@supabase/auth-helpers-nextjs'
+import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
 import { cookies, headers } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function PUT(request: NextRequest) {
-  const supabaseCookie = createRouteHandlerClient({ cookies })
+  const supabase = createRouteHandlerClient({ cookies })
 
   const {
-    data: { session: cookieSession }
-  } = await supabaseCookie.auth.getSession()
+    data: { user },
+    error: sessionError
+  } = await supabase.auth.getUser()
 
-  let currentUser = cookieSession?.user
-  if (!currentUser) {
-    const headersList = headers()
-    const authorization = headersList.get('authorization')
-    const [, token] = authorization?.split(' ') as string[]
-    const { data: userResponse } = await supabaseCookie.auth.getUser(token)
-    currentUser = userResponse.user as User
+  if (sessionError || !user) {
+    return NextResponse.json(
+      { error: 'User is not authenticated' },
+      { status: 401 }
+    )
   }
 
   const { name, obraSocialId } = await request.json()
-
-  // @ts-ignore
   const { data, error } = await supabase
     .from('users')
     .update({
       name,
       obra_social_id: obraSocialId
     })
-    .eq('id', currentUser.id)
+    .eq('id', user.id)
 
   if (error) {
+    console.error(error)
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
 

@@ -31,7 +31,6 @@ export const UserTurnosList = ({ turnos = [] }: { turnos: any }) => {
 
   const deleteTurno = async (id: string) => {
     const { error } = await supabase.from('turnos').delete().eq('id', id)
-    console.log({ error })
     if (!error) {
       router.refresh()
     }
@@ -62,7 +61,6 @@ export const UserTurnosList = ({ turnos = [] }: { turnos: any }) => {
                   </time>
                   <div className="flex gap-2">
                     <DrawerShiftUpdate id={id} />
-
                     <Dialog open={open} onOpenChange={setOpen}>
                       <DialogTrigger asChild>
                         <Button variant="destructive">
