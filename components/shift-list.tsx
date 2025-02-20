@@ -14,6 +14,7 @@ import {
   TableRow
 } from '@/components/ui/table'
 import { Spinner } from './ui/spinner'
+import { SelectShiftDayAdmin } from './admin/select-shift-day'
 
 export const ShiftListFilter = () => {
   const supabase = createClientComponentClient()
@@ -44,8 +45,15 @@ export const ShiftListFilter = () => {
   }, [selectedDate])
 
   return (
-    <div>
-      <SimpleCalendar date={selectedDate} setDate={setSelectedDate} />
+    <div className="flex flex-col gap-8">
+      <div className="flex flex-col md:flex-row gap-4">
+        <SimpleCalendar
+          date={selectedDate}
+          setDate={setSelectedDate}
+          size={12}
+        />
+        <SelectShiftDayAdmin action="create" />
+      </div>
 
       {isLoading ? (
         <Spinner />

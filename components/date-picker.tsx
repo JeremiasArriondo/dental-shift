@@ -16,10 +16,12 @@ import {
 
 export function DatePicker({
   date,
-  setDate
+  setDate,
+  size
 }: {
   date?: Date
   setDate: React.Dispatch<React.SetStateAction<Date | undefined>>
+  size?: number
 }) {
   const [isCalendarOpen, setIsCalendarOpen] = React.useState(false)
   return (
@@ -51,6 +53,7 @@ export function DatePicker({
           disabled={(date) => date <= subDays(new Date(), 1)}
           locale={es}
           initialFocus
+          size={size}
         />
       </PopoverContent>
     </Popover>
