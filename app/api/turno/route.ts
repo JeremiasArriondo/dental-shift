@@ -14,7 +14,7 @@ export async function POST(request: NextRequest, { params }: { params: any }) {
   if (!currentUser) {
     const headersList = headers()
     const authorization = headersList.get('authorization')
-    const [bearer, token] = authorization?.split(' ') as string[]
+    const [, token] = authorization?.split(' ') as string[]
     const { data: userResponse } = await supabaseCookie.auth.getUser(token)
     currentUser = userResponse.user as User
   }
@@ -35,6 +35,10 @@ export async function POST(request: NextRequest, { params }: { params: any }) {
       returning: 'minimal'
     }
   )
+
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 })
+  }
 
   return NextResponse.json(data, {
     status: 200

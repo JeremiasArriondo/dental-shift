@@ -18,21 +18,24 @@ export async function PUT(request: NextRequest) {
     currentUser = userResponse.user as User
   }
 
-  const { id, description, date, hour, appointment_date } = await request.json()
+  const { name, obraSocialId } = await request.json()
 
   // @ts-ignore
   const { data, error } = await supabase
     .from('users')
     .update({
-      description,
-      date,
-      hour,
-      user_id: currentUser.id,
-      appointment_date
+      name,
+      obra_social_id: obraSocialId
     })
-    .eq('id', id)
+    .eq('id', currentUser.id)
 
-  return NextResponse.json(currentUser, {
-    status: 201
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 })
+  }
+
+  console.log({ data })
+
+  return NextResponse.json(data, {
+    status: 200
   })
 }
