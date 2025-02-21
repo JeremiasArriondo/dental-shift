@@ -39,7 +39,7 @@
 @layer base {
   * {
     @apply border-border;
-    color: #4f7268;
+    color: #3d5a50;
   }
   body {
     @apply bg-background text-foreground;

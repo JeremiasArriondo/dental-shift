@@ -17,12 +17,30 @@ export async function PUT(request: NextRequest) {
     )
   }
 
-  const { name, obraSocialId } = await request.json()
+  const {
+    name,
+    dni,
+    dateOfBirth,
+    gender,
+    address,
+    age,
+    numberPhone,
+    healthInsurance,
+    affiliateNumber
+  } = await request.json()
+
   const { data, error } = await supabase
     .from('users')
     .update({
       name,
-      obra_social_id: obraSocialId
+      dni,
+      date_of_birth: dateOfBirth,
+      gender,
+      address,
+      age,
+      number_phone: numberPhone,
+      obra_social_id: healthInsurance,
+      affiliate_number: affiliateNumber
     })
     .eq('id', user.id)
 
