@@ -70,6 +70,7 @@ export const UserPersonalData = ({
       gender: user.gender ?? 'X',
       address: user.address ?? '',
       age: user.age ?? undefined,
+      city: user.city ?? undefined,
       numberPhone: user.number_phone ?? undefined,
       healthInsurance: user.obra_social_id ?? undefined,
       affiliateNumber: user.affiliate_number ?? undefined
@@ -235,7 +236,11 @@ export const UserPersonalData = ({
                 <FormItem>
                   <FormLabel>Localidad</FormLabel>
                   <FormControl>
-                    <Input placeholder="Rojas" {...field} />
+                    <Input
+                      placeholder="Rojas"
+                      className="placeholder-gray-200::placeholder"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

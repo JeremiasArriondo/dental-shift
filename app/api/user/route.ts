@@ -20,6 +20,7 @@ export async function PUT(request: NextRequest) {
   const {
     name,
     dni,
+    city,
     dateOfBirth,
     gender,
     address,
@@ -37,6 +38,7 @@ export async function PUT(request: NextRequest) {
       date_of_birth: dateOfBirth,
       gender,
       address,
+      city,
       age,
       number_phone: numberPhone,
       obra_social_id: healthInsurance,
