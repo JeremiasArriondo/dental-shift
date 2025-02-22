@@ -23,8 +23,9 @@ import {
 import { DrawerShiftUpdate } from './drawer-shift-update'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { Turno } from '@/types/shift'
 
-export const UserTurnosList = ({ turnos = [] }: { turnos: any }) => {
+export const UserTurnosList = ({ turnos }: { turnos: Turno[] }) => {
   const [open, setOpen] = useState(false)
 
   const router = useRouter()

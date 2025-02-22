@@ -9,6 +9,33 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      obra_social: {
+        Row: {
+          code: string | null
+          created_at: string
+          id: string
+          name: string
+          sigla: string
+          updated_at: string | null
+        }
+        Insert: {
+          code?: string | null
+          created_at?: string
+          id?: string
+          name: string
+          sigla: string
+          updated_at?: string | null
+        }
+        Update: {
+          code?: string | null
+          created_at?: string
+          id?: string
+          name?: string
+          sigla?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       turnos: {
         Row: {
           amount: number | null
@@ -55,30 +82,65 @@ export type Database = {
       }
       users: {
         Row: {
+          address: string | null
+          affiliate_number: string | null
+          age: number | null
           avatar_url: string | null
+          city: string | null
           created_at: string
+          date_of_birth: string | null
+          dni: number | null
           email: string | null
           full_name: string
+          gender: string | null
           id: string
           name: string
+          number_phone: string | null
+          obra_social_id: string | null
         }
         Insert: {
+          address?: string | null
+          affiliate_number?: string | null
+          age?: number | null
           avatar_url?: string | null
+          city?: string | null
           created_at?: string
+          date_of_birth?: string | null
+          dni?: number | null
           email?: string | null
           full_name: string
+          gender?: string | null
           id?: string
           name: string
+          number_phone?: string | null
+          obra_social_id?: string | null
         }
         Update: {
+          address?: string | null
+          affiliate_number?: string | null
+          age?: number | null
           avatar_url?: string | null
+          city?: string | null
           created_at?: string
+          date_of_birth?: string | null
+          dni?: number | null
           email?: string | null
           full_name?: string
+          gender?: string | null
           id?: string
           name?: string
+          number_phone?: string | null
+          obra_social_id?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "users_obra_social_id_fkey"
+            columns: ["obra_social_id"]
+            isOneToOne: false
+            referencedRelation: "obra_social"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {

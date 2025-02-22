@@ -33,6 +33,7 @@ import { Input } from '@/components/ui/input'
 import { useToast } from './ui/use-toast'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
+import { User } from '@/types/shift'
 
 const formSchema = z.object({
   name: z
@@ -55,7 +56,7 @@ export const UserPersonalData = ({
   user,
   obraSociales
 }: {
-  user: any
+  user: User
   obraSociales: any[]
 }) => {
   const { toast } = useToast()
