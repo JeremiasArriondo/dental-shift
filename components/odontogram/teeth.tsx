@@ -6,7 +6,7 @@ type TeethProps = {
   end: number
   x: number
   y: number
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+  handleChange: (id: number, toothState: any) => void
 }
 
 export default function Teeth({ start, end, x, y, handleChange }: TeethProps) {

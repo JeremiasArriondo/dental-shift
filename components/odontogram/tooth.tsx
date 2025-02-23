@@ -47,10 +47,13 @@ type Action =
 function reducer(state: ToothState, action: Action): ToothState {
   switch (action.type) {
     case 'crown':
+      return { ...state, Crown: action.value }
     case 'extract':
+      return { ...state, Extract: action.value }
     case 'filter':
+      return { ...state, Filter: action.value }
     case 'fracture':
-      return { ...state, [action.type]: action.value }
+      return { ...state, Fracture: action.value }
     case 'carie':
       return {
         ...state,
@@ -107,10 +110,8 @@ export default function Tooth({
             <text
               x="6"
               y="30"
-              stroke="navy"
-              fill="navy"
               strokeWidth="0.1"
-              className="text-[8px]"
+              className="text-[8px] fill-greenDark stroke-greenDark"
             >
               {number}
             </text>
@@ -126,54 +127,54 @@ export default function Tooth({
             <ContextMenuItem
               onClick={() => dispatch({ type: 'carie', zone: 'all', value: 1 })}
             >
-              Cavities All
+              Todas las caries
             </ContextMenuItem>
             {['center', 'top', 'bottom', 'left', 'right'].map((zone) => (
               <ContextMenuItem
                 key={zone}
                 onClick={() => dispatch({ type: 'carie', zone, value: 1 })}
               >
-                Cavity - {zone.charAt(0).toUpperCase() + zone.slice(1)}
+                Carie - {zone.charAt(0).toUpperCase() + zone.slice(1)}
               </ContextMenuItem>
             ))}
             <ContextMenuItem
               onClick={() => dispatch({ type: 'extract', value: 1 })}
             >
-              Absent
+              Ausente
             </ContextMenuItem>
             <ContextMenuItem
               onClick={() => dispatch({ type: 'crown', value: 1 })}
             >
-              Crown
+              Corona
             </ContextMenuItem>
             <ContextMenuItem
               onClick={() => dispatch({ type: 'filter', value: 1 })}
             >
-              Filtered Out
+              Filtrado
             </ContextMenuItem>
             <ContextMenuItem
               onClick={() => dispatch({ type: 'fracture', value: 1 })}
             >
-              Fractured
+              Fracturado
             </ContextMenuItem>
           </ContextMenuSubContent>
         </ContextMenuSub>
 
         {/* Submenú Done */}
         <ContextMenuSub>
-          <ContextMenuSubTrigger>Done</ContextMenuSubTrigger>
+          <ContextMenuSubTrigger>Realizado</ContextMenuSubTrigger>
           <ContextMenuSubContent>
             <ContextMenuItem
               onClick={() => dispatch({ type: 'carie', zone: 'all', value: 2 })}
             >
-              Cavities All
+              Todas las caries
             </ContextMenuItem>
             {['center', 'top', 'bottom', 'left', 'right'].map((zone) => (
               <ContextMenuItem
                 key={zone}
                 onClick={() => dispatch({ type: 'carie', zone, value: 2 })}
               >
-                Cavity - {zone.charAt(0).toUpperCase() + zone.slice(1)}
+                Carie - {zone.charAt(0).toUpperCase() + zone.slice(1)}
               </ContextMenuItem>
             ))}
             <ContextMenuItem
@@ -217,7 +218,7 @@ function getClassNamesByZone(zone: string, state: ToothState): string {
 }
 
 function drawToothActions(state: ToothState) {
-  let otherFigures = null
+  let otherFigures: JSX.Element | null = null
 
   if (state.Extract > 0) {
     otherFigures = (
