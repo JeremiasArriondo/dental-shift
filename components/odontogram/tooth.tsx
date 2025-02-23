@@ -1,23 +1,14 @@
 import React, { useEffect, useReducer, useRef } from 'react'
-import useContextMenu from 'contextmenu'
-import 'contextmenu/ContextMenu.css'
+import {
+  ContextMenu,
+  ContextMenuTrigger,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuSub,
+  ContextMenuSubTrigger,
+  ContextMenuSubContent
+} from '@/components/ui/context-menu'
 import './Tooth.css'
-
-type CavitiesState = {
-  center: number
-  top: number
-  bottom: number
-  left: number
-  right: number
-}
-
-type ToothState = {
-  Cavities: CavitiesState
-  Extract: number
-  Crown: number
-  Filter: number
-  Fracture: number
-}
 
 interface ToothProps {
   number: number
@@ -26,14 +17,22 @@ interface ToothProps {
   onChange: (number: number, state: ToothState) => void
 }
 
-const initialState: ToothState = {
+interface ToothState {
   Cavities: {
-    center: 0,
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0
-  },
+    center: number
+    top: number
+    bottom: number
+    left: number
+    right: number
+  }
+  Extract: number
+  Crown: number
+  Filter: number
+  Fracture: number
+}
+
+const initialState: ToothState = {
+  Cavities: { center: 0, top: 0, bottom: 0, left: 0, right: 0 },
   Extract: 0,
   Crown: 0,
   Filter: 0,
@@ -41,51 +40,47 @@ const initialState: ToothState = {
 }
 
 type Action =
-  | { type: 'crown'; value: number }
-  | { type: 'extract'; value: number }
-  | { type: 'filter'; value: number }
-  | { type: 'fracture'; value: number }
-  | { type: 'carie'; zone: keyof CavitiesState | 'all'; value: number }
+  | { type: 'crown' | 'extract' | 'filter' | 'fracture'; value: number }
+  | { type: 'carie'; zone: string; value: number }
   | { type: 'clear' }
 
-export default function Tooth({ number, positionX, positionY, onChange }) {
-  function reducer(state: ToothState, action: Action): ToothState {
-    switch (action.type) {
-      case 'crown':
-        return { ...state, Crown: action.value }
-      case 'extract':
-        return { ...state, Extract: action.value }
-      case 'filter':
-        return { ...state, Filter: action.value }
-      case 'fracture':
-        return { ...state, Fracture: action.value }
-      case 'carie':
-        return {
-          ...state,
-          Cavities: setCavities(state, action.zone, action.value)
-        }
-      case 'clear':
-        return initialState
-      default:
-        throw new Error('Acción no soportada')
-    }
+function reducer(state: ToothState, action: Action): ToothState {
+  switch (action.type) {
+    case 'crown':
+    case 'extract':
+    case 'filter':
+    case 'fracture':
+      return { ...state, [action.type]: action.value }
+    case 'carie':
+      return {
+        ...state,
+        Cavities:
+          action.zone === 'all'
+            ? {
+                center: action.value,
+                top: action.value,
+                bottom: action.value,
+                left: action.value,
+                right: action.value
+              }
+            : { ...state.Cavities, [action.zone]: action.value }
+      }
+    case 'clear':
+      return initialState
+    default:
+      throw new Error()
   }
+}
 
-  const crown = (val: number): Action => ({ type: 'crown', value: val })
-  const extract = (val: number): Action => ({ type: 'extract', value: val })
-  const filter = (val: number): Action => ({ type: 'filter', value: val })
-  const fracture = (val: number): Action => ({ type: 'fracture', value: val })
-  const carie = (z: keyof CavitiesState | 'all', val: number): Action => ({
-    type: 'carie',
-    value: val,
-    zone: z
-  })
-  const clear = (): Action => ({ type: 'clear' })
-
+export default function Tooth({
+  number,
+  positionX,
+  positionY,
+  onChange
+}: ToothProps) {
   const [toothState, dispatch] = useReducer(reducer, initialState)
-  const [contextMenu, useCM] = useContextMenu({ submenuSymbol: '>' })
-
   const firstUpdate = useRef(true)
+
   useEffect(() => {
     if (firstUpdate.current) {
       firstUpdate.current = false
@@ -94,123 +89,173 @@ export default function Tooth({ number, positionX, positionY, onChange }) {
     onChange(number, toothState)
   }, [toothState, onChange, number])
 
-  // Done SubMenu
-  const doneSubMenu = (place: keyof CavitiesState, value: number) => ({
-    Cavity: () => dispatch(carie(place, value)),
-    'Cavities All': () => dispatch(carie('all', value)),
-    Absent: () => dispatch(extract(value)),
-    Crown: () => dispatch(crown(value))
-  })
-  // Todo SubMenu
-  const todoSubMenu = (place: keyof CavitiesState, value: number) => ({
-    Cavity: () => dispatch(carie(place, value)),
-    'Cavities All': () => dispatch(carie('all', value)),
-    Absent: () => dispatch(extract(value)),
-    Crown: () => dispatch(crown(value)),
-    'Filtered Out': () => dispatch(filter(value)),
-    Fractured: () => dispatch(fracture(value))
-  })
-
-  // Main ContextMenu
-  const menuConfig = (place: keyof CavitiesState) => ({
-    Done: doneSubMenu(place, 1),
-    'To Do': todoSubMenu(place, 2),
-    'JSX line': <hr></hr>,
-    'Clear All': () => dispatch(clear())
-  })
-
-  const getClassNamesByZone = (zone: keyof CavitiesState): string => {
-    return toothState.Cavities[zone] === 1
-      ? 'to-do'
-      : toothState.Cavities[zone] === 2
-      ? 'done'
-      : ''
-  }
-
-  // Tooth position
   const translate = `translate(${positionX},${positionY})`
 
   return (
-    <svg className="tooth">
-      <g transform={translate}>
-        <polygon
-          points="0,0 20,0 15,5 5,5"
-          onContextMenu={useCM(menuConfig('top'))}
-          className={getClassNamesByZone('top')}
-        />
-        <polygon
-          points="5,15 15,15 20,20 0,20"
-          onContextMenu={useCM(menuConfig('bottom'))}
-          className={getClassNamesByZone('bottom')}
-        />
-        <polygon
-          points="15,5 20,0 20,20 15,15"
-          onContextMenu={useCM(menuConfig('left'))}
-          className={getClassNamesByZone('left')}
-        />
-        <polygon
-          points="0,0 5,5 5,15 0,20"
-          onContextMenu={useCM(menuConfig('right'))}
-          className={getClassNamesByZone('right')}
-        />
-        <polygon
-          points="5,5 15,5 15,15 5,15"
-          onContextMenu={useCM(menuConfig('center'))}
-          className={getClassNamesByZone('center')}
-        />
-        {drawToothActions()}
-        <text
-          x="6"
-          y="30"
-          stroke="navy"
-          fill="navy"
-          strokeWidth="0.1"
-          className="text-[8px]"
-        >
-          {number}
-        </text>
-      </g>
-      {contextMenu}
-    </svg>
+    <ContextMenu>
+      <ContextMenuTrigger asChild>
+        <svg className="tooth">
+          <g transform={translate}>
+            {['top', 'bottom', 'left', 'right', 'center'].map((zone) => (
+              <polygon
+                key={zone}
+                points={getPolygonPoints(zone)}
+                className={getClassNamesByZone(zone, toothState)}
+              />
+            ))}
+            {drawToothActions(toothState)}
+            <text
+              x="6"
+              y="30"
+              stroke="navy"
+              fill="navy"
+              strokeWidth="0.1"
+              className="text-[8px]"
+            >
+              {number}
+            </text>
+          </g>
+        </svg>
+      </ContextMenuTrigger>
+
+      <ContextMenuContent>
+        {/* Submenú To Do */}
+        <ContextMenuSub>
+          <ContextMenuSubTrigger>To Do</ContextMenuSubTrigger>
+          <ContextMenuSubContent>
+            <ContextMenuItem
+              onClick={() => dispatch({ type: 'carie', zone: 'all', value: 1 })}
+            >
+              Cavities All
+            </ContextMenuItem>
+            {['center', 'top', 'bottom', 'left', 'right'].map((zone) => (
+              <ContextMenuItem
+                key={zone}
+                onClick={() => dispatch({ type: 'carie', zone, value: 1 })}
+              >
+                Cavity - {zone.charAt(0).toUpperCase() + zone.slice(1)}
+              </ContextMenuItem>
+            ))}
+            <ContextMenuItem
+              onClick={() => dispatch({ type: 'extract', value: 1 })}
+            >
+              Absent
+            </ContextMenuItem>
+            <ContextMenuItem
+              onClick={() => dispatch({ type: 'crown', value: 1 })}
+            >
+              Crown
+            </ContextMenuItem>
+            <ContextMenuItem
+              onClick={() => dispatch({ type: 'filter', value: 1 })}
+            >
+              Filtered Out
+            </ContextMenuItem>
+            <ContextMenuItem
+              onClick={() => dispatch({ type: 'fracture', value: 1 })}
+            >
+              Fractured
+            </ContextMenuItem>
+          </ContextMenuSubContent>
+        </ContextMenuSub>
+
+        {/* Submenú Done */}
+        <ContextMenuSub>
+          <ContextMenuSubTrigger>Done</ContextMenuSubTrigger>
+          <ContextMenuSubContent>
+            <ContextMenuItem
+              onClick={() => dispatch({ type: 'carie', zone: 'all', value: 2 })}
+            >
+              Cavities All
+            </ContextMenuItem>
+            {['center', 'top', 'bottom', 'left', 'right'].map((zone) => (
+              <ContextMenuItem
+                key={zone}
+                onClick={() => dispatch({ type: 'carie', zone, value: 2 })}
+              >
+                Cavity - {zone.charAt(0).toUpperCase() + zone.slice(1)}
+              </ContextMenuItem>
+            ))}
+            <ContextMenuItem
+              onClick={() => dispatch({ type: 'extract', value: 2 })}
+            >
+              Ausente
+            </ContextMenuItem>
+            <ContextMenuItem
+              onClick={() => dispatch({ type: 'crown', value: 2 })}
+            >
+              Corona
+            </ContextMenuItem>
+          </ContextMenuSubContent>
+        </ContextMenuSub>
+
+        <ContextMenuItem onClick={() => dispatch({ type: 'clear' })}>
+          Borrar todo
+        </ContextMenuItem>
+      </ContextMenuContent>
+    </ContextMenu>
   )
+}
 
-  function setCavities(
-    prevState: ToothState,
-    zone: keyof CavitiesState | 'all',
-    value: number
-  ): CavitiesState {
-    const newCavities = { ...prevState.Cavities }
-    if (zone === 'all') {
-      Object.keys(newCavities).forEach((key) => {
-        newCavities[key as keyof CavitiesState] = value
-      })
-    } else {
-      newCavities[zone] = value
-    }
-    return newCavities
+function getPolygonPoints(zone: string): string {
+  const points: Record<string, string> = {
+    top: '0,0 20,0 15,5 5,5',
+    bottom: '5,15 15,15 20,20 0,20',
+    left: '15,5 20,0 20,20 15,15',
+    right: '0,0 5,5 5,15 0,20',
+    center: '5,5 15,5 15,15 5,15'
+  }
+  return points[zone] || ''
+}
+
+function getClassNamesByZone(zone: string, state: ToothState): string {
+  return state.Cavities[zone] === 1
+    ? 'to-do'
+    : state.Cavities[zone] === 2
+    ? 'done'
+    : ''
+}
+
+function drawToothActions(state: ToothState) {
+  let otherFigures = null
+
+  if (state.Extract > 0) {
+    otherFigures = (
+      <g stroke={state.Extract === 1 ? 'red' : 'blue'}>
+        <line x1="0" y1="0" x2="20" y2="20" strokeWidth="2" />
+        <line x1="0" y1="20" x2="20" y2="0" strokeWidth="2" />
+      </g>
+    )
   }
 
-  function drawToothActions() {
-    if (toothState.Extract > 0) {
-      return (
-        <g stroke={toothState.Extract === 1 ? 'red' : 'blue'}>
-          <line x1="0" y1="0" x2="20" y2="20" strokeWidth="2" />
-          <line x1="0" y1="20" x2="20" y2="0" strokeWidth="2" />
-        </g>
-      )
-    }
-    if (toothState.Crown > 0) {
-      return (
-        <circle
-          cx="10"
-          cy="10"
-          r="10"
-          fill="none"
-          stroke="blue"
-          strokeWidth="2"
-        />
-      )
-    }
-    return null
+  if (state.Fracture > 0) {
+    otherFigures = (
+      <g stroke={state.Fracture === 1 ? 'red' : 'blue'}>
+        <line x1="0" y1="10" x2="20" y2="10" strokeWidth="2"></line>
+      </g>
+    )
   }
+
+  if (state.Filter > 0) {
+    otherFigures = (
+      <g stroke={state.Filter === 1 ? 'red' : 'blue'}>
+        <line x1="0" y1="20" x2="20" y2="0" strokeWidth="2" />
+      </g>
+    )
+  }
+
+  if (state.Crown > 0) {
+    otherFigures = (
+      <circle
+        cx="10"
+        cy="10"
+        r="10"
+        fill="none"
+        stroke={state.Crown === 1 ? 'red' : 'blue'}
+        strokeWidth="2"
+      />
+    )
+  }
+
+  return otherFigures
 }
