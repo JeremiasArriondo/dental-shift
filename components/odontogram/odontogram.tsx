@@ -8,7 +8,7 @@ function Odontogram() {
   }
 
   return (
-    <div className="text-center p-4 h-[220px]">
+    <div className="text-center p-4 h-[280px]">
       <svg version="1.1" height="100%" width="100%">
         <Teeth
           start={18}
