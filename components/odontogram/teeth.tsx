@@ -9,7 +9,7 @@ type TeethProps = {
   handleChange: (id: number, toothState: any) => void
 }
 
-export default function Teeth({ start, end, x, y, handleChange }: TeethProps) {
+export const Teeth = ({ start, end, x, y, handleChange }: TeethProps) => {
   let tooths = getArray(start, end)
 
   return (

@@ -1,8 +1,8 @@
 'use client'
 import { useState } from 'react'
-import Teeth from './teeth'
+import { Teeth } from './teeth'
 
-export default function Odontogram() {
+export const Odontogram = () => {
   const [odontogramState, setOdontogramState] = useState<{
     [key: number]: any
   }>({})

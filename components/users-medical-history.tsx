@@ -9,7 +9,7 @@ import {
   SelectValue
 } from '@/components/ui/select'
 import { User } from '@/types/shift'
-import Odontogram from '@/components/odontogram/odontogram'
+import { Odontogram } from './odontogram/odontogram'
 
 export const UsersMedicalHistory = ({ users = [] }: { users: User[] }) => {
   const [selectedUserId, setSelectedUserId] = useState<string>('')

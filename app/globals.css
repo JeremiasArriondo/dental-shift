@@ -45,3 +45,33 @@
     @apply bg-background text-foreground;
   }
 }
+
+svg.tooth {
+  cursor: pointer;
+  fill: white;
+}
+
+svg.tooth .to-do {
+  fill: red;
+}
+
+svg.tooth .done {
+  fill: blue;
+}
+
+svg.tooth .active {
+  fill: gray;
+}
+
+svg.tooth polygon {
+  stroke: black;
+  stroke-width: 0.5;
+}
+
+polygon:hover {
+  fill: lightgray;
+}
+
+rect:hover {
+  fill: lightgray;
+}

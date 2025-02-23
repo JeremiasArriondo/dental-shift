@@ -8,7 +8,6 @@ import {
   ContextMenuSubTrigger,
   ContextMenuSubContent
 } from '@/components/ui/context-menu'
-import './Tooth.css'
 
 interface ToothProps {
   number: number
