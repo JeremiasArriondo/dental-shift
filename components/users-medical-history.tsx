@@ -1,3 +1,5 @@
+'use client'
+import { useState } from 'react'
 import { UserAvatar } from './user-avatar'
 import {
   Select,
@@ -6,11 +8,17 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
+import { User } from '@/types/shift'
+import Odontogram from '@/components/odontogram/odontogram'
 
-export const UsersMedicalHistory = ({ users = [] }: { users: any }) => {
+export const UsersMedicalHistory = ({ users = [] }: { users: User[] }) => {
+  const [selectedUserId, setSelectedUserId] = useState<string>('')
+
+  const selectedUser = users.find((u) => u.id === selectedUserId)
+
   return (
     <>
-      <Select>
+      <Select value={selectedUserId} onValueChange={setSelectedUserId}>
         <SelectTrigger className="w-full">
           <SelectValue placeholder="Selecciona un paciente" />
         </SelectTrigger>
@@ -24,6 +32,17 @@ export const UsersMedicalHistory = ({ users = [] }: { users: any }) => {
             ))}
         </SelectContent>
       </Select>
+      {selectedUser && (
+        <UserAvatar
+          user={{
+            image: selectedUser.avatar_url ?? '',
+            name: selectedUser.name
+          }}
+          className="h-16 w-16"
+        />
+      )}
+      {selectedUser && <p>{selectedUser.email}</p>}
+      <Odontogram />
     </>
   )
 }
