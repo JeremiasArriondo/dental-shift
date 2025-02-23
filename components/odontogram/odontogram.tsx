@@ -1,12 +1,25 @@
+'use client'
+import { useState } from 'react'
 import Teeth from './teeth'
 
-function Odontogram() {
-  let odontogramState = {}
+export default function Odontogram() {
+  const [odontogramState, setOdontogramState] = useState<{
+    [key: number]: any
+  }>({})
 
-  const handleToothUpdate = (id: number, toothState) => {
-    odontogramState[id] = toothState
+  const handleToothUpdate = (id: number, toothState: any) => {
+    setOdontogramState((prevState) => {
+      if (JSON.stringify(prevState[id]) === JSON.stringify(toothState)) {
+        return prevState
+      }
+
+      return {
+        ...prevState,
+        [id]: toothState
+      }
+    })
   }
-
+  console.log(odontogramState)
   return (
     <div className="text-center p-4 h-[280px]">
       <svg version="1.1" height="100%" width="100%">
@@ -73,5 +86,3 @@ function Odontogram() {
     </div>
   )
 }
-
-export default Odontogram

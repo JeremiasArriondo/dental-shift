@@ -90,7 +90,7 @@ export default function Tooth({
       return
     }
     onChange(number, toothState)
-  }, [toothState, onChange, number])
+  }, [toothState, number])
 
   const translate = `translate(${positionX},${positionY})`
 
