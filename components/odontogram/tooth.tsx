@@ -221,7 +221,7 @@ function drawToothActions(state: ToothState) {
 
   if (state.Extract > 0) {
     otherFigures = (
-      <g stroke={state.Extract === 1 ? 'red' : 'blue'}>
+      <g stroke={state.Extract === 1 ? '#ff2056' : '#2b7fff'}>
         <line x1="0" y1="0" x2="20" y2="20" strokeWidth="2" />
         <line x1="0" y1="20" x2="20" y2="0" strokeWidth="2" />
       </g>
@@ -230,7 +230,7 @@ function drawToothActions(state: ToothState) {
 
   if (state.Fracture > 0) {
     otherFigures = (
-      <g stroke={state.Fracture === 1 ? 'red' : 'blue'}>
+      <g stroke={state.Fracture === 1 ? '#ff2056' : '#2b7fff'}>
         <line x1="0" y1="10" x2="20" y2="10" strokeWidth="2"></line>
       </g>
     )
@@ -238,7 +238,7 @@ function drawToothActions(state: ToothState) {
 
   if (state.Filter > 0) {
     otherFigures = (
-      <g stroke={state.Filter === 1 ? 'red' : 'blue'}>
+      <g stroke={state.Filter === 1 ? '#ff2056' : '#2b7fff'}>
         <line x1="0" y1="20" x2="20" y2="0" strokeWidth="2" />
       </g>
     )
@@ -251,7 +251,7 @@ function drawToothActions(state: ToothState) {
         cy="10"
         r="10"
         fill="none"
-        stroke={state.Crown === 1 ? 'red' : 'blue'}
+        stroke={state.Crown === 1 ? '#ff2056' : '#2b7fff'}
         strokeWidth="2"
       />
     )
