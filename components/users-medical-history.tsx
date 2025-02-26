@@ -28,7 +28,6 @@ import { Button } from './ui/button'
 import { Label } from './ui/label'
 import { useToast } from './ui/use-toast'
 import { useRouter } from 'next/navigation'
-import { supabase } from '@/lib/connections/supabase'
 import { Odontogram } from './odontogram'
 
 const formSchema = z.object({
@@ -120,25 +119,32 @@ export const UsersMedicalHistory = ({ users = [] }: { users: User[] }) => {
   useEffect(() => {
     const fetchMedicalHistory = async () => {
       try {
-        if (!selectedUser?.id) return
-
-        const { data, error } = await supabase
-          .from('historial_clinico')
-          .select('*')
-          .eq('user_id', selectedUser.id ?? null)
-          .single()
-
-        if (error) {
-          if (error.code === 'PGRST116') return
-          throw error
+        if (!selectedUser?.id) {
+          setMedicalHistory(null)
+          form.reset()
+          return
         }
 
-        if (!data) return
+        setMedicalHistory(null)
+
+        const res = await fetch(
+          `/api/medical-history?user_id=${selectedUser.id}`
+        )
+
+        if (!res.ok) {
+          throw new Error('Error al obtener el historial clínico')
+        }
+
+        const data = await res.json()
+
+        if (!data) {
+          form.reset()
+          return
+        }
 
         setMedicalHistory(data)
       } catch (error) {
-        console.error(error)
-      } finally {
+        console.error('Error al obtener historial clínico:', error)
       }
     }
 
@@ -203,6 +209,28 @@ export const UsersMedicalHistory = ({ users = [] }: { users: User[] }) => {
           bebe: medicalHistory?.afecciones?.['bebe'] ?? false
         }
       })
+    } else {
+      form.reset({
+        medico_cabecera: '',
+        bajo_tratamiento: false,
+        enfermedad: '',
+        alergico: false,
+        toma_medicamento: false,
+        medicamentos: '',
+        afecciones: {
+          problemas_cardiacos: false,
+          presion_arterial: false,
+          hepatitis: false,
+          cancer: false,
+          diabetes: false,
+          coagulacion: false,
+          otros_problemas: false,
+          embarazada_trimestre: false,
+          terapia_radiante: false,
+          fuma: false,
+          bebe: false
+        }
+      })
     }
   }, [medicalHistory, form.reset])
 
@@ -239,7 +267,11 @@ export const UsersMedicalHistory = ({ users = [] }: { users: User[] }) => {
               <div className="flex gap-2">
                 <div>
                   <Label htmlFor="name">Nombre:</Label>
-                  <Input id="name" value={selectedUser.full_name} readOnly />
+                  <Input
+                    id="name"
+                    value={selectedUser.full_name ?? ''}
+                    readOnly
+                  />
                 </div>
                 <div>
                   <Label htmlFor="name">DNI:</Label>
@@ -257,21 +289,17 @@ export const UsersMedicalHistory = ({ users = [] }: { users: User[] }) => {
                 <Input
                   id="id"
                   type="date"
-                  value={selectedUser.date_of_birth ?? undefined}
+                  value={selectedUser.date_of_birth ?? ''}
                   readOnly
                 />
               </div>
               <div>
                 <Label htmlFor="name">Sexo</Label>
-                <Input
-                  id="id"
-                  value={selectedUser.gender ?? undefined}
-                  readOnly
-                />
+                <Input id="id" value={selectedUser.gender ?? ''} readOnly />
               </div>
               <div>
                 <Label htmlFor="name">Edad</Label>
-                <Input id="id" value={selectedUser.age ?? undefined} readOnly />
+                <Input id="id" value={selectedUser.age ?? ''} readOnly />
               </div>
             </div>
             <div className="flex gap-2">
