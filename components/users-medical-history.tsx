@@ -9,7 +9,6 @@ import {
   SelectValue
 } from '@/components/ui/select'
 import { MedicalHistory, User } from '@/types/shift'
-import { Odontogram } from './odontogram/odontogram'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -30,6 +29,7 @@ import { Label } from './ui/label'
 import { useToast } from './ui/use-toast'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/connections/supabase'
+import { Odontogram } from './odontogram'
 
 const formSchema = z.object({
   medico_cabecera: z
@@ -89,14 +89,14 @@ export const UsersMedicalHistory = ({ users = [] }: { users: User[] }) => {
   const selectedUser = users.find((u) => u.id === selectedUserId)
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values)
+    if (!selectedUser) return
     try {
       const res = await fetch('/api/medical-history', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(values)
+        body: JSON.stringify({ ...values, user_id: selectedUser.id })
       })
 
       if (!res.ok) {
@@ -128,9 +128,13 @@ export const UsersMedicalHistory = ({ users = [] }: { users: User[] }) => {
           .eq('user_id', selectedUser.id ?? null)
           .single()
 
-        if (error) throw error
+        if (error) {
+          if (error.code === 'PGRST116') return
+          throw error
+        }
 
-        console.log({ data })
+        if (!data) return
+
         setMedicalHistory(data)
       } catch (error) {
         console.error(error)
@@ -235,11 +239,15 @@ export const UsersMedicalHistory = ({ users = [] }: { users: User[] }) => {
               <div className="flex gap-2">
                 <div>
                   <Label htmlFor="name">Nombre:</Label>
-                  <Input id="name" value={selectedUser.full_name} />
+                  <Input id="name" value={selectedUser.full_name} readOnly />
                 </div>
                 <div>
                   <Label htmlFor="name">DNI:</Label>
-                  <Input id="name" value={selectedUser.dni ?? 'XX.XXX.XXX'} />
+                  <Input
+                    id="name"
+                    value={selectedUser.dni ?? 'XX.XXX.XXX'}
+                    readOnly
+                  />
                 </div>
               </div>
             </div>
@@ -249,52 +257,36 @@ export const UsersMedicalHistory = ({ users = [] }: { users: User[] }) => {
                 <Input
                   id="id"
                   type="date"
-                  defaultValue={selectedUser.date_of_birth ?? undefined}
                   value={selectedUser.date_of_birth ?? undefined}
+                  readOnly
                 />
               </div>
               <div>
                 <Label htmlFor="name">Sexo</Label>
                 <Input
                   id="id"
-                  defaultValue={selectedUser.gender ?? undefined}
                   value={selectedUser.gender ?? undefined}
+                  readOnly
                 />
               </div>
               <div>
                 <Label htmlFor="name">Edad</Label>
-                <Input
-                  id="id"
-                  defaultValue={selectedUser.age ?? undefined}
-                  value={selectedUser.age ?? undefined}
-                />
+                <Input id="id" value={selectedUser.age ?? undefined} readOnly />
               </div>
             </div>
             <div className="flex gap-2">
               <div>
                 <Label htmlFor="name">Domicilio</Label>
-                <Input
-                  id="id"
-                  defaultValue={selectedUser.address ?? ''}
-                  value={selectedUser.address ?? ''}
-                />
+                <Input id="id" value={selectedUser.address ?? ''} readOnly />
               </div>
               <div>
                 <Label htmlFor="name">Localidad</Label>
-                <Input
-                  id="id"
-                  defaultValue={selectedUser.city ?? ''}
-                  value={selectedUser.city ?? ''}
-                />
+                <Input id="id" value={selectedUser.city ?? ''} readOnly />
               </div>
             </div>
             <div>
               <Label htmlFor="name">Telefono</Label>
-              <Input
-                id="id"
-                defaultValue={selectedUser.number_phone ?? ''}
-                value={selectedUser.number_phone ?? ''}
-              />
+              <Input id="id" value={selectedUser.number_phone ?? ''} readOnly />
             </div>
             <hr className="my-4" />
             <CardTitle className="py-4">Historia clínica</CardTitle>

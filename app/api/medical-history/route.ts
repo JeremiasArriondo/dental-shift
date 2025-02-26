@@ -18,9 +18,7 @@ export async function POST(request: NextRequest) {
   }
   const req = await request.json()
 
-  const { data, error } = await supabase
-    .from('historial_clinico')
-    .insert({ ...req, user_id: user.id })
+  const { data, error } = await supabase.from('historial_clinico').insert(req)
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 })
