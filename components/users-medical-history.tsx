@@ -83,6 +83,9 @@ export const UsersMedicalHistory = ({ users = [] }: { users: User[] }) => {
   const [medicalHistory, setMedicalHistory] = useState<MedicalHistory | null>(
     null
   )
+  const [odontogramState, setOdontogramState] = useState<{
+    [key: number]: any
+  }>({})
   const { toast } = useToast()
   const router = useRouter()
   const selectedUser = users.find((u) => u.id === selectedUserId)
@@ -95,7 +98,12 @@ export const UsersMedicalHistory = ({ users = [] }: { users: User[] }) => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ ...values, user_id: selectedUser.id })
+        body: JSON.stringify({
+          ...values,
+          odontogram: odontogramState,
+          user_id: selectedUser.id,
+          ...(medicalHistory && { id: medicalHistory.id })
+        })
       })
 
       if (!res.ok) {
@@ -143,6 +151,7 @@ export const UsersMedicalHistory = ({ users = [] }: { users: User[] }) => {
         }
 
         setMedicalHistory(data)
+        setOdontogramState(data.odontogram)
       } catch (error) {
         console.error('Error al obtener historial clínico:', error)
       }
@@ -463,7 +472,10 @@ export const UsersMedicalHistory = ({ users = [] }: { users: User[] }) => {
                 ))}
                 <hr className="my-4" />
                 <CardTitle className="py-4">Odontograma</CardTitle>
-                <Odontogram />
+                <Odontogram
+                  odontogramState={odontogramState}
+                  setOdontogramState={setOdontogramState}
+                />
                 <Button type="submit">Guardar datos</Button>
               </form>
             </Form>

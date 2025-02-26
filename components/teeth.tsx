@@ -6,10 +6,18 @@ type TeethProps = {
   end: number
   x: number
   y: number
+  odontogramState: { [key: number]: any }
   handleChange: (id: number, toothState: any) => void
 }
 
-export const Teeth = ({ start, end, x, y, handleChange }: TeethProps) => {
+export const Teeth = ({
+  start,
+  end,
+  x,
+  y,
+  odontogramState,
+  handleChange
+}: TeethProps) => {
   let tooths = getArray(start, end)
 
   return (
@@ -21,6 +29,7 @@ export const Teeth = ({ start, end, x, y, handleChange }: TeethProps) => {
           number={i}
           positionY={y}
           positionX={Math.abs((i - start) * 25) + x}
+          toothState={odontogramState[i] || undefined}
         />
       ))}
     </g>

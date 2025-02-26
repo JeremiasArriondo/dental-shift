@@ -13,6 +13,7 @@ interface ToothProps {
   number: number
   positionX: number
   positionY: number
+  toothState: ToothState
   onChange: (number: number, state: ToothState) => void
 }
 
@@ -42,6 +43,7 @@ type Action =
   | { type: 'crown' | 'extract' | 'filter' | 'fracture'; value: number }
   | { type: 'carie'; zone: string; value: number }
   | { type: 'clear' }
+  | { type: 'sync'; value: ToothState }
 
 function reducer(state: ToothState, action: Action): ToothState {
   switch (action.type) {
@@ -69,6 +71,8 @@ function reducer(state: ToothState, action: Action): ToothState {
       }
     case 'clear':
       return initialState
+    case 'sync':
+      return action.value
     default:
       throw new Error()
   }
@@ -78,18 +82,25 @@ export default function Tooth({
   number,
   positionX,
   positionY,
-  onChange
+  onChange,
+  toothState
 }: ToothProps) {
-  const [toothState, dispatch] = useReducer(reducer, initialState)
-  const firstUpdate = useRef(true)
+  const [state, dispatch] = useReducer(reducer, toothState || initialState)
+  // const firstUpdate = useRef(true)
 
   useEffect(() => {
-    if (firstUpdate.current) {
-      firstUpdate.current = false
-      return
+    if (toothState) {
+      dispatch({ type: 'sync', value: toothState }) // Acción especial para sincronizar
     }
-    onChange(number, toothState)
-  }, [toothState, number])
+  }, [toothState])
+
+  useEffect(() => {
+    // if (firstUpdate.current) {
+    //   firstUpdate.current = false
+    //   return
+    // }
+    onChange(number, state)
+  }, [state, number])
 
   const translate = `translate(${positionX},${positionY})`
 
@@ -102,10 +113,10 @@ export default function Tooth({
               <polygon
                 key={zone}
                 points={getPolygonPoints(zone)}
-                className={getClassNamesByZone(zone, toothState)}
+                className={getClassNamesByZone(zone, state)}
               />
             ))}
-            {drawToothActions(toothState)}
+            {drawToothActions(state)}
             <text
               x="6"
               y="30"

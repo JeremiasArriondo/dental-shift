@@ -1,12 +1,17 @@
-'use client'
-import { useState } from 'react'
+import { useEffect } from 'react'
 import { Teeth } from './teeth'
 
-export const Odontogram = () => {
-  const [odontogramState, setOdontogramState] = useState<{
-    [key: number]: any
-  }>({})
+type OdontogramProps = {
+  odontogramState: { [key: number]: any }
+  setOdontogramState: React.Dispatch<
+    React.SetStateAction<{ [key: number]: any }>
+  >
+}
 
+export const Odontogram = ({
+  odontogramState,
+  setOdontogramState
+}: OdontogramProps) => {
   const handleToothUpdate = (id: number, toothState: any) => {
     setOdontogramState((prevState) => {
       if (JSON.stringify(prevState[id]) === JSON.stringify(toothState)) {
@@ -20,6 +25,18 @@ export const Odontogram = () => {
     })
   }
 
+  useEffect(() => {
+    console.log('Nuevo odontogramState:', odontogramState)
+
+    setOdontogramState((prevState) => {
+      // Solo actualizamos el estado si es diferente
+      if (JSON.stringify(prevState) !== JSON.stringify(odontogramState)) {
+        return odontogramState
+      }
+      return prevState
+    })
+  }, [odontogramState])
+
   return (
     <div className="text-center py-2 h-[280px] overflow-x-auto">
       <svg version="1.1" height="100%" width="100%">
@@ -28,6 +45,7 @@ export const Odontogram = () => {
           end={11}
           x={0}
           y={0}
+          odontogramState={odontogramState}
           handleChange={handleToothUpdate}
         />
         <Teeth
@@ -35,6 +53,7 @@ export const Odontogram = () => {
           end={28}
           x={210}
           y={0}
+          odontogramState={odontogramState}
           handleChange={handleToothUpdate}
         />
 
@@ -43,6 +62,7 @@ export const Odontogram = () => {
           end={51}
           x={75}
           y={40}
+          odontogramState={odontogramState}
           handleChange={handleToothUpdate}
         />
         <Teeth
@@ -50,6 +70,7 @@ export const Odontogram = () => {
           end={65}
           x={210}
           y={40}
+          odontogramState={odontogramState}
           handleChange={handleToothUpdate}
         />
 
@@ -58,6 +79,7 @@ export const Odontogram = () => {
           end={81}
           x={75}
           y={80}
+          odontogramState={odontogramState}
           handleChange={handleToothUpdate}
         />
         <Teeth
@@ -65,6 +87,7 @@ export const Odontogram = () => {
           end={75}
           x={210}
           y={80}
+          odontogramState={odontogramState}
           handleChange={handleToothUpdate}
         />
 
@@ -73,6 +96,7 @@ export const Odontogram = () => {
           end={41}
           x={0}
           y={120}
+          odontogramState={odontogramState}
           handleChange={handleToothUpdate}
         />
         <Teeth
@@ -80,6 +104,7 @@ export const Odontogram = () => {
           end={38}
           x={210}
           y={120}
+          odontogramState={odontogramState}
           handleChange={handleToothUpdate}
         />
       </svg>
