@@ -9,6 +9,62 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      historial_clinico: {
+        Row: {
+          afecciones: Json | null
+          alergias: string | null
+          alergico: boolean | null
+          bajo_tratamiento: boolean | null
+          created_at: string
+          enfermedad: string | null
+          id: string
+          medicamentos: string | null
+          medico_cabecera: string | null
+          odontogram: Json | null
+          toma_medicamento: boolean | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          afecciones?: Json | null
+          alergias?: string | null
+          alergico?: boolean | null
+          bajo_tratamiento?: boolean | null
+          created_at?: string
+          enfermedad?: string | null
+          id?: string
+          medicamentos?: string | null
+          medico_cabecera?: string | null
+          odontogram?: Json | null
+          toma_medicamento?: boolean | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          afecciones?: Json | null
+          alergias?: string | null
+          alergico?: boolean | null
+          bajo_tratamiento?: boolean | null
+          created_at?: string
+          enfermedad?: string | null
+          id?: string
+          medicamentos?: string | null
+          medico_cabecera?: string | null
+          odontogram?: Json | null
+          toma_medicamento?: boolean | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "historial_clinico_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       obra_social: {
         Row: {
           code: string | null
