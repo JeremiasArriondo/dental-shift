@@ -19,9 +19,9 @@ export const Odontogram = () => {
       }
     })
   }
-  console.log(odontogramState)
+
   return (
-    <div className="text-center p-4 h-[280px]">
+    <div className="text-center py-2 h-[280px] overflow-x-auto">
       <svg version="1.1" height="100%" width="100%">
         <Teeth
           start={18}
