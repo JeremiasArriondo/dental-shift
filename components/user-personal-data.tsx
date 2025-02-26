@@ -33,6 +33,7 @@ import { Input } from '@/components/ui/input'
 import { useToast } from './ui/use-toast'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
+import { User } from '@/types/shift'
 
 const formSchema = z.object({
   name: z
@@ -55,7 +56,7 @@ export const UserPersonalData = ({
   user,
   obraSociales
 }: {
-  user: any
+  user: User
   obraSociales: any[]
 }) => {
   const { toast } = useToast()
@@ -298,117 +299,10 @@ export const UserPersonalData = ({
                 </FormItem>
               )}
             />
-            <Button type="submit">Guardas datos</Button>
+            <Button type="submit">Guardar datos</Button>
           </form>
         </Form>
       </CardContent>
-      {/* <CardContent className="space-y-2">
-        <div className="w-full">
-          <Label htmlFor="name">Nombre completo</Label>
-          <Input
-            id="name"
-            defaultValue={fullName}
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
-          />
-        </div>
-        <div>
-          <Label htmlFor="name">DNI</Label>
-          <Input
-            id="id"
-            defaultValue={fullName}
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
-          />
-        </div>
-        <div className="flex gap-2">
-          <div>
-            <Label htmlFor="name">Fecha nacimiento</Label>
-            <Input
-              id="id"
-              defaultValue={fullName}
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-            />
-          </div>
-          <div className="w-[100px]">
-            <Label htmlFor="name">Sexo</Label>
-            <Input
-              id="id"
-              defaultValue={fullName}
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-            />
-          </div>
-          <div className="w-[60px]">
-            <Label htmlFor="name">Edad</Label>
-            <Input
-              id="id"
-              defaultValue={0}
-              value={0}
-              onChange={(e) => setFullName(e.target.value)}
-            />
-          </div>
-        </div>
-        <div>
-          <Label htmlFor="name">Domicilio</Label>
-          <Input
-            id="id"
-            defaultValue={0}
-            value={0}
-            onChange={(e) => setFullName(e.target.value)}
-          />
-        </div>
-        <div>
-          <Label htmlFor="name">Telefono</Label>
-          <Input
-            id="id"
-            defaultValue={0}
-            value={0}
-            onChange={(e) => setFullName(e.target.value)}
-          />
-        </div>
-        <div>
-          <Label htmlFor="name">Localidad</Label>
-          <Input
-            id="id"
-            defaultValue={0}
-            value={0}
-            onChange={(e) => setFullName(e.target.value)}
-          />
-        </div>
-        <div>
-          <Label htmlFor="username">Obra Social</Label>
-          <Select
-            value={selectedOption}
-            onValueChange={(value) => {
-              setSelectedOption(value)
-            }}
-          >
-            <SelectTrigger>
-              <SelectValue placeholder="Selecciona tu obra social" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>Obra Sociales</SelectLabel>
-                {obraSociales &&
-                  obraSociales.length > 0 &&
-                  obraSociales.map((obraSocial) => {
-                    return (
-                      <SelectItem value={obraSocial.id} key={obraSocial.id}>
-                        {obraSocial.sigla ? obraSocial.sigla : obraSocial.name}
-                      </SelectItem>
-                    )
-                  })}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-        </div>
-      </CardContent> 
-      <CardFooter>
-        <Button onClick={savePersonalData}>Guardar cambios</Button>
-      </CardFooter>
-      */}
     </Card>
   )
 }

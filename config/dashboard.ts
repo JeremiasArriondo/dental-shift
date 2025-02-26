@@ -27,6 +27,10 @@ export const dashboardConfig: DashboardConfig = {
     {
       title: 'Historiales clínicos',
       href: '/dashboard/admin/medical-history'
+    },
+    {
+      title: 'Obra Sociales',
+      href: '/dashboard/admin/obras-sociales'
     }
   ],
   sidebarNav: [

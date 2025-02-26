@@ -9,6 +9,89 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      historial_clinico: {
+        Row: {
+          afecciones: Json | null
+          alergias: string | null
+          alergico: boolean | null
+          bajo_tratamiento: boolean | null
+          created_at: string
+          enfermedad: string | null
+          id: string
+          medicamentos: string | null
+          medico_cabecera: string | null
+          odontogram: Json | null
+          toma_medicamento: boolean | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          afecciones?: Json | null
+          alergias?: string | null
+          alergico?: boolean | null
+          bajo_tratamiento?: boolean | null
+          created_at?: string
+          enfermedad?: string | null
+          id?: string
+          medicamentos?: string | null
+          medico_cabecera?: string | null
+          odontogram?: Json | null
+          toma_medicamento?: boolean | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          afecciones?: Json | null
+          alergias?: string | null
+          alergico?: boolean | null
+          bajo_tratamiento?: boolean | null
+          created_at?: string
+          enfermedad?: string | null
+          id?: string
+          medicamentos?: string | null
+          medico_cabecera?: string | null
+          odontogram?: Json | null
+          toma_medicamento?: boolean | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "historial_clinico_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      obra_social: {
+        Row: {
+          code: string | null
+          created_at: string
+          id: string
+          name: string
+          sigla: string
+          updated_at: string | null
+        }
+        Insert: {
+          code?: string | null
+          created_at?: string
+          id?: string
+          name: string
+          sigla: string
+          updated_at?: string | null
+        }
+        Update: {
+          code?: string | null
+          created_at?: string
+          id?: string
+          name?: string
+          sigla?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       turnos: {
         Row: {
           amount: number | null
@@ -55,30 +138,65 @@ export type Database = {
       }
       users: {
         Row: {
+          address: string | null
+          affiliate_number: string | null
+          age: number | null
           avatar_url: string | null
+          city: string | null
           created_at: string
+          date_of_birth: string | null
+          dni: number | null
           email: string | null
           full_name: string
+          gender: string | null
           id: string
           name: string
+          number_phone: string | null
+          obra_social_id: string | null
         }
         Insert: {
+          address?: string | null
+          affiliate_number?: string | null
+          age?: number | null
           avatar_url?: string | null
+          city?: string | null
           created_at?: string
+          date_of_birth?: string | null
+          dni?: number | null
           email?: string | null
           full_name: string
+          gender?: string | null
           id?: string
           name: string
+          number_phone?: string | null
+          obra_social_id?: string | null
         }
         Update: {
+          address?: string | null
+          affiliate_number?: string | null
+          age?: number | null
           avatar_url?: string | null
+          city?: string | null
           created_at?: string
+          date_of_birth?: string | null
+          dni?: number | null
           email?: string | null
           full_name?: string
+          gender?: string | null
           id?: string
           name?: string
+          number_phone?: string | null
+          obra_social_id?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "users_obra_social_id_fkey"
+            columns: ["obra_social_id"]
+            isOneToOne: false
+            referencedRelation: "obra_social"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {

@@ -1,3 +1,4 @@
+import { User } from '@/types/shift'
 import { UserAvatar } from './user-avatar'
 import {
   Table,
@@ -8,7 +9,7 @@ import {
   TableRow
 } from '@/components/ui/table'
 
-export const UserList = ({ users = [] }: { users: any }) => {
+export const UserList = ({ users = [] }: { users: User[] }) => {
   return (
     <Table>
       <TableHeader>
@@ -28,14 +29,14 @@ export const UserList = ({ users = [] }: { users: any }) => {
                 <UserAvatar
                   user={{
                     name: user.name,
-                    image: user.avatar_url
+                    image: user.avatar_url ?? ''
                   }}
                   className="h-12 w-12"
                 />
               </TableCell>
               <TableCell>{user.name}</TableCell>
               <TableCell>{user.email}</TableCell>
-              <TableCell>{user.obra_social.sigla}</TableCell>
+              <TableCell>{user.obra_social?.sigla}</TableCell>
               <TableCell className="text-right">-</TableCell>
             </TableRow>
           ))

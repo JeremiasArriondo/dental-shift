@@ -34,14 +34,46 @@
 
     --radius: 0.5rem;
   }
-}
 
-@layer base {
+  ::selection {
+    background-color: #b8e6d3;
+  }
+
   * {
     @apply border-border;
     color: #3d5a50;
   }
   body {
     @apply bg-background text-foreground;
+  }
+
+  svg.tooth {
+    cursor: pointer;
+    fill: #ffffff;
+  }
+
+  svg.tooth .to-do {
+    fill: theme('colors.rose.500');
+  }
+
+  svg.tooth .done {
+    fill: theme('colors.blue.500');
+  }
+
+  svg.tooth .active {
+    fill: theme('colors.gray.500');
+  }
+
+  svg.tooth polygon {
+    stroke: theme('colors.slate.900');
+    stroke-width: 0.5;
+  }
+
+  polygon:hover {
+    fill: theme('colors.greenLigth');
+  }
+
+  rect:hover {
+    fill: theme('colors.greenLigth');
   }
 }
