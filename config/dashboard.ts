@@ -21,10 +21,6 @@ export const dashboardConfig: DashboardConfig = {
       href: '/dashboard/admin/pacients'
     },
     {
-      title: 'Configurar turnos',
-      href: '/dashboard/admin/settings'
-    },
-    {
       title: 'Historiales clínicos',
       href: '/dashboard/admin/medical-history'
     },

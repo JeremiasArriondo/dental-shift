@@ -9,7 +9,7 @@ import { UsersMedicalHistory } from '@/components/users-medical-history'
 import { User } from '@/types/shift'
 
 export const metadata = {
-  title: 'Mis datos personales'
+  title: 'Historiales clínicos'
 }
 
 export default async function MedicalHistoryPage() {
