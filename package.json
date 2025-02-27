@@ -31,7 +31,7 @@
     "clsx": "^2.0.0",
     "contextmenu": "^1.0.2",
     "date-fns": "^2.30.0",
-    "lucide-react": "^0.284.0",
+    "lucide-react": "^0.476.0",
     "next": "13.5.4",
     "prettier": "^3.0.3",
     "react": "^18",
