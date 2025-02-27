@@ -10,6 +10,8 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 import { UserAvatar } from '@/components/user-avatar'
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { useRouter } from 'next/navigation'
 
 interface UserAccountNavProps extends React.HTMLAttributes<HTMLDivElement> {
   user: {
@@ -20,11 +22,20 @@ interface UserAccountNavProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export function UserAccountNav({ user }: UserAccountNavProps) {
+  const supabase = createClientComponentClient()
+
+  const route = useRouter()
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut()
+    route.refresh()
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
         <UserAvatar
-          user={{ name: user.name || null, image: user.image || null }}
+          user={{ name: user.name ?? '', image: user.image ?? '' }}
           className="h-8 w-8"
         />
       </DropdownMenuTrigger>
@@ -47,15 +58,7 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
           <Link href="/dashboard/settings">Mis datos personales</Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem
-          className="cursor-pointer"
-          onSelect={(event) => {
-            event.preventDefault()
-            // signOut({
-            //   callbackUrl: `${window.location.origin}/login`
-            // })
-          }}
-        >
+        <DropdownMenuItem className="cursor-pointer" onSelect={handleSignOut}>
           Cerrar sesión
         </DropdownMenuItem>
       </DropdownMenuContent>

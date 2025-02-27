@@ -1,18 +1,31 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
+import { cookies } from 'next/headers'
 
 import { cn } from '@/lib/utils'
 import { buttonVariants } from '@/components/ui/button'
 import { ChevronLeft } from 'lucide-react'
 import { AuthButtonServer } from '@/components/auth-btn-server'
 import Image from 'next/image'
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
+import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
   title: 'Login',
   description: 'Login to your account'
 }
 
-export default function LoginPage() {
+export default async function LoginPage() {
+  const supabase = createServerComponentClient({ cookies })
+
+  const {
+    data: { session }
+  } = await supabase.auth.getSession()
+
+  if (session) {
+    redirect('/dashboard/turnos')
+  }
+
   return (
     <div className="container flex h-screen w-screen flex-col items-center justify-center">
       <Link
