@@ -58,15 +58,6 @@ export function MainNav({ items, isAdmin, children }: MainNavProps) {
           ))}
         </nav>
       ) : null}
-      {isAdmin && (
-        <Link
-          href="/dashboard/admin"
-          className="flex items-center text-lg font-medium transition-colors hover:text-foreground/50 sm:text-sm"
-        >
-          <Shield />
-          <span>Admin</span>
-        </Link>
-      )}
 
       <button
         className="flex items-center space-x-2 md:hidden"
@@ -84,6 +75,15 @@ export function MainNav({ items, isAdmin, children }: MainNavProps) {
         )}
         <span className="font-bold">Menu</span>
       </button>
+      {isAdmin && (
+        <Link
+          href="/dashboard/admin"
+          className="flex items-center text-lg font-medium transition-colors hover:text-foreground/50 sm:text-sm"
+        >
+          <Shield />
+          <span>Admin</span>
+        </Link>
+      )}
       {showMobileMenu && items && (
         <MobileNav items={items}>{children}</MobileNav>
       )}

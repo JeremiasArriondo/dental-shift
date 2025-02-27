@@ -4,11 +4,9 @@ import type { NextRequest } from 'next/server'
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  // Si no está en una ruta de admin, no hacer nada
-  if (!pathname.startsWith('/admin')) return NextResponse.next()
+  if (!pathname.startsWith('/dashboard/admin')) return NextResponse.next()
 
-  // Consultar la API de rol del usuario
-  const res = await fetch(`${request.nextUrl.origin}/api/auth/role`, {
+  const res = await fetch(`${request.nextUrl.origin}/api/role`, {
     headers: request.headers
   })
 
@@ -26,5 +24,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/admin/:path*']
+  matcher: ['/dashboard/admin/:path*']
 }
