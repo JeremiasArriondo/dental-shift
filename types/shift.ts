@@ -17,4 +17,6 @@ export type User = UserEntity & {
   obra_social: ObraSocialEntity | null
 }
 
+export type ObrasSociales = ObraSocialEntity
+
 export type MedicalHistory = MedicalHistoryEntity
