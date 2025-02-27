@@ -11,6 +11,8 @@ interface DashboardLayoutProps {
   children?: React.ReactNode
 }
 
+const ADMIN = 'admin'
+
 export default async function DashboardLayout({
   children
 }: DashboardLayoutProps) {
@@ -35,7 +37,7 @@ export default async function DashboardLayout({
         <div className="flex h-16 items-center justify-between py-4 px-8">
           <MainNav
             items={dashboardConfig.adminNav}
-            isAdmin={user?.role ?? false}
+            isAdmin={user?.role === ADMIN}
           />
           <UserAccountNav
             user={{

@@ -153,6 +153,7 @@ export type Database = {
           name: string
           number_phone: string | null
           obra_social_id: string | null
+          role: string | null
         }
         Insert: {
           address?: string | null
@@ -170,6 +171,7 @@ export type Database = {
           name: string
           number_phone?: string | null
           obra_social_id?: string | null
+          role?: string | null
         }
         Update: {
           address?: string | null
@@ -187,6 +189,7 @@ export type Database = {
           name?: string
           number_phone?: string | null
           obra_social_id?: string | null
+          role?: string | null
         }
         Relationships: [
           {

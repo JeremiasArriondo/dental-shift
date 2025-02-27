@@ -140,7 +140,7 @@ export const SelectShiftDayAdmin = ({
     setHour(undefined)
     setDate(undefined)
   }
-  console.log({ users })
+
   return (
     <div className="flex flex-col gap-2 w-[360px]">
       <div>
