@@ -1,20 +1,31 @@
+'use client'
 import {
   Table,
   TableBody,
   TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow
 } from '@/components/ui/table'
 import { ObrasSociales } from '@/types/shift'
+import { Button } from './ui/button'
+import { X } from 'lucide-react'
+import { supabase } from '@/lib/connections/supabase'
+import { useRouter } from 'next/navigation'
 
 type ObrasSocialesProps = {
   obrasSociales: ObrasSociales[]
 }
 
 export const ObrasSocialesList = ({ obrasSociales }: ObrasSocialesProps) => {
+  const router = useRouter()
+  const deleteTurno = async (id: string) => {
+    const { error } = await supabase.from('obra_social').delete().eq('id', id)
+    if (!error) {
+      router.refresh()
+    }
+  }
   return (
     <>
       <Table>
@@ -34,6 +45,7 @@ export const ObrasSocialesList = ({ obrasSociales }: ObrasSocialesProps) => {
             <TableHead className="w-[100px]">Sigla</TableHead>
             <TableHead>Nombre</TableHead>
             <TableHead>Codigo</TableHead>
+            <TableHead>Eliminar</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -43,6 +55,15 @@ export const ObrasSocialesList = ({ obrasSociales }: ObrasSocialesProps) => {
                 <TableCell>{obraSocial.sigla}</TableCell>
                 <TableCell>{obraSocial.name}</TableCell>
                 <TableCell>{obraSocial.code}</TableCell>
+                <TableCell>
+                  <Button
+                    variant="secondary"
+                    className="border border-bgColor"
+                    onClick={() => deleteTurno(obraSocial.id)}
+                  >
+                    <X />
+                  </Button>
+                </TableCell>
               </TableRow>
             ))}
         </TableBody>
