@@ -18,29 +18,9 @@ export const Navbar = () => {
               Eliana Ginocchio
             </span>
           </Link>
-          <div>
-            <ul className="flex flex-row font-medium mt-0 mr-6 space-x-8 text-sm">
-              <li>
-                <Link
-                  href="/dashboard/turnos"
-                  className="text-base hover:underline"
-                >
-                  Turnos
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/dashboard/admin"
-                  className="text-base hover:underline"
-                >
-                  Admin
-                </Link>
-              </li>
-            </ul>
-          </div>
           <div className="flex items-center">
             <Button asChild variant="outline">
-              <Link href="/login">Login</Link>
+              <Link href="/login">Iniciar sesión</Link>
             </Button>
           </div>
         </div>

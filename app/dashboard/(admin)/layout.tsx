@@ -23,11 +23,20 @@ export default async function DashboardLayout({
     redirect('/login')
   }
 
+  const { data: user } = await supabase
+    .from('users')
+    .select('role')
+    .eq('id', session.user.id)
+    .single()
+
   return (
     <div className="flex min-h-screen flex-col space-y-6">
       <header className="sticky top-0 z-40 border-b bg-bgColor backdrop-filter backdrop-blur-3xl backdrop-saturate-200">
         <div className="flex h-16 items-center justify-between py-4 px-8">
-          <MainNav items={dashboardConfig.adminNav} />
+          <MainNav
+            items={dashboardConfig.adminNav}
+            isAdmin={user?.role ?? false}
+          />
           <UserAccountNav
             user={{
               name: session.user.user_metadata.name,

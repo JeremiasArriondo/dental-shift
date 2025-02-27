@@ -3,7 +3,7 @@
 import * as React from 'react'
 import Link from 'next/link'
 import { useSelectedLayoutSegment } from 'next/navigation'
-
+import { Shield } from 'lucide-react'
 import { siteConfig } from '@/config/site'
 import { cn } from '@/lib/utils'
 import { MobileNav } from '@/components/mobile-nav'
@@ -18,10 +18,11 @@ type MainNavItem = {
 
 interface MainNavProps {
   items?: MainNavItem[]
+  isAdmin: boolean
   children?: React.ReactNode
 }
 
-export function MainNav({ items, children }: MainNavProps) {
+export function MainNav({ items, isAdmin, children }: MainNavProps) {
   const segment = useSelectedLayoutSegment()
   const [showMobileMenu, setShowMobileMenu] = React.useState<boolean>(false)
 
@@ -57,6 +58,16 @@ export function MainNav({ items, children }: MainNavProps) {
           ))}
         </nav>
       ) : null}
+      {isAdmin && (
+        <Link
+          href="/dashboard/admin"
+          className="flex items-center text-lg font-medium transition-colors hover:text-foreground/50 sm:text-sm"
+        >
+          <Shield />
+          <span>Admin</span>
+        </Link>
+      )}
+
       <button
         className="flex items-center space-x-2 md:hidden"
         onClick={() => setShowMobileMenu(!showMobileMenu)}
