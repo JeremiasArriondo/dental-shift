@@ -9,6 +9,7 @@ import { Database } from '@/types/database'
 import { supabase as supabaseConnection } from '@/lib/connections/supabase'
 
 import { UserPersonalData } from '@/components/user-personal-data'
+import { Suspense } from 'react'
 
 export const metadata = {
   title: 'Mis datos personales'
@@ -40,17 +41,22 @@ export default async function DashboardSettingsPage() {
         heading="Datos personales"
         text="Mantén tu información actualizada"
       />{' '}
-      <Tabs defaultValue="account" className="w-[400px]">
-        <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="account">Cuenta</TabsTrigger>
-        </TabsList>
-        <TabsContent value="account">
-          <UserPersonalData user={user} obraSociales={obraSociales as any[]} />
-        </TabsContent>
-        <TabsContent value="password">
-          <div>Password</div>
-        </TabsContent>
-      </Tabs>
+      <Suspense fallback={<p>Loadding...</p>}>
+        <Tabs defaultValue="account" className="w-[400px]">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="account">Cuenta</TabsTrigger>
+          </TabsList>
+          <TabsContent value="account">
+            <UserPersonalData
+              user={user}
+              obraSociales={obraSociales as any[]}
+            />
+          </TabsContent>
+          <TabsContent value="password">
+            <div>Password</div>
+          </TabsContent>
+        </Tabs>
+      </Suspense>
     </DashboardShell>
   )
 }

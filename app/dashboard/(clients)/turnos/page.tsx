@@ -8,9 +8,11 @@ import { UserTurnosList } from '@/components/user-turnos-list'
 import { supabase as supabaseConnection } from '@/lib/connections/supabase'
 import { DrawerShiftCreate } from '@/components/drawer-shift-create'
 import { Turno } from '@/types/shift'
+import { Suspense } from 'react'
+import { SkeletonCard } from '@/components/skeleton-card'
 
 export const metadata = {
-  title: 'Dashboard'
+  title: 'Mis turnos'
 }
 
 export default async function DashboardTurnosPage() {
@@ -36,7 +38,9 @@ export default async function DashboardTurnosPage() {
         text="En esta sección puedes gestionar tus turnos"
       ></DashboardHeader>
       <DrawerShiftCreate />
-      <UserTurnosList turnos={turnos as Turno[]} />
+      <Suspense fallback={<SkeletonCard />}>
+        <UserTurnosList turnos={turnos as Turno[]} />
+      </Suspense>
     </DashboardShell>
   )
 }
