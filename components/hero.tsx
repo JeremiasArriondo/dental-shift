@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { Button } from './ui/button'
+import Link from 'next/link'
 
 export const Hero = () => {
   return (
@@ -18,8 +18,12 @@ export const Hero = () => {
             en buenas manos.
           </p>
           <div className="flex gap-4 my-4">
-            <Button>Conoce más</Button>
-            <Button variant="secondary">Agenda un turno</Button>
+            <Link
+              href="/login"
+              className="p-2 rounded-md text-greenDark bg-greenLigth"
+            >
+              Agenda un turno
+            </Link>
           </div>
         </div>
         <div className="w-full">
@@ -32,7 +36,6 @@ export const Hero = () => {
             priority
             style={{
               width: '100%'
-              // height: 'auto'
             }}
           />
         </div>

@@ -45,6 +45,7 @@ export default async function DashboardSettingsPage() {
         <Tabs defaultValue="account" className="w-[400px]">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="account">Cuenta</TabsTrigger>
+            <TabsTrigger value="notification">Notificaciones</TabsTrigger>
           </TabsList>
           <TabsContent value="account">
             <UserPersonalData
@@ -52,8 +53,8 @@ export default async function DashboardSettingsPage() {
               obraSociales={obraSociales as any[]}
             />
           </TabsContent>
-          <TabsContent value="password">
-            <div>Password</div>
+          <TabsContent value="notification">
+            <div>Notificaciones</div>
           </TabsContent>
         </Tabs>
       </Suspense>
