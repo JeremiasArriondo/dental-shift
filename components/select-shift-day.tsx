@@ -118,7 +118,7 @@ export const SelectShiftDay = ({
     <div className="flex flex-col gap-4">
       <div>
         <h3 className="text-sm mb-2 text-muted-foreground">Fecha:</h3>
-        <DatePicker date={date} setDate={setDate} />
+        <DatePicker date={date} setDate={setDate} size={9} />
       </div>
       <div>
         <h3 className="text-sm mb-2 text-muted-foreground">

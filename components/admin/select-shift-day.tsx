@@ -15,7 +15,6 @@ import { useRouter } from 'next/navigation'
 import { DatePicker } from '../date-picker'
 import { Button } from '../ui/button'
 import { Textarea } from '../ui/textarea'
-import { supabase } from '@/lib/connections/supabase'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 
 type TimeFormat = `${string}:${string}:${string}`
