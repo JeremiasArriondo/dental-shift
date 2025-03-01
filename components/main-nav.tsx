@@ -1,14 +1,13 @@
 'use client'
 
-import * as React from 'react'
-import Link from 'next/link'
-import { useSelectedLayoutSegment } from 'next/navigation'
-import { Shield } from 'lucide-react'
+import { MobileNav } from '@/components/mobile-nav'
 import { siteConfig } from '@/config/site'
 import { cn } from '@/lib/utils'
-import { MobileNav } from '@/components/mobile-nav'
-import { X } from 'lucide-react'
+import { Shield, X } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
+import { useSelectedLayoutSegment } from 'next/navigation'
+import * as React from 'react'
 
 type MainNavItem = {
   title: string

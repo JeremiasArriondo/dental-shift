@@ -1,13 +1,13 @@
-import React, { useEffect, useReducer, useRef } from 'react'
 import {
   ContextMenu,
-  ContextMenuTrigger,
   ContextMenuContent,
   ContextMenuItem,
   ContextMenuSub,
+  ContextMenuSubContent,
   ContextMenuSubTrigger,
-  ContextMenuSubContent
+  ContextMenuTrigger
 } from '@/components/ui/context-menu'
+import { useEffect, useReducer } from 'react'
 
 interface ToothProps {
   number: number

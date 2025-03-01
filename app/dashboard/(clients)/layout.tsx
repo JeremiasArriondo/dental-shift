@@ -1,11 +1,11 @@
-import { redirect } from 'next/navigation'
 import { MainNav } from '@/components/main-nav'
 import { DashboardNav } from '@/components/nav'
 import { UserAccountNav } from '@/components/user-account-nav'
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
-import { Database } from '@/types/database'
-import { cookies } from 'next/headers'
 import { dashboardConfig } from '@/config/dashboard'
+import { Database } from '@/types/database'
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 
 interface DashboardLayoutProps {
   children?: React.ReactNode

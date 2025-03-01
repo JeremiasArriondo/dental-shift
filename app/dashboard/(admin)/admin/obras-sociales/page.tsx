@@ -1,13 +1,13 @@
 import { DashboardHeader } from '@/components/header'
+import { CreateObraSocial } from '@/components/obras-sociales-create'
+import { ObrasSocialesList } from '@/components/obras-sociales-list'
 import { DashboardShell } from '@/components/shell'
+import { supabase as supabaseConnection } from '@/lib/connections/supabase'
+import { Database } from '@/types/database'
+import { ObrasSociales } from '@/types/shift'
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { Database } from '@/types/database'
-import { supabase as supabaseConnection } from '@/lib/connections/supabase'
-import { ObrasSociales } from '@/types/shift'
-import { ObrasSocialesList } from '@/components/obras-sociales-list'
-import { CreateObraSocial } from '@/components/obras-sociales-create'
 
 export const metadata = {
   title: 'Obras sociales'

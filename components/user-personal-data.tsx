@@ -1,4 +1,21 @@
 'use client'
+import { Button } from '@/components/ui/button'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle
+} from '@/components/ui/card'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
 import {
   Select,
   SelectContent,
@@ -8,32 +25,12 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
-import { useState } from 'react'
-import { z } from 'zod'
+import { useToast } from '@/components/ui/use-toast'
+import { User } from '@/types/shift'
 import { zodResolver } from '@hookform/resolvers/zod'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle
-} from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { useToast } from './ui/use-toast'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
-import { User } from '@/types/shift'
+import { z } from 'zod'
 
 const formSchema = z.object({
   name: z

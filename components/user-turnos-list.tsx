@@ -1,15 +1,15 @@
 'use client'
 
-import { CalendarCheck, Trash } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle
-} from './ui/card'
-import { Button } from './ui/button'
+} from '@/components/ui/card'
 import { supabase } from '@/lib/connections/supabase'
+import { CalendarCheck, Trash } from 'lucide-react'
 
 import {
   Dialog,
@@ -20,10 +20,10 @@ import {
   DialogTrigger
 } from '@/components/ui/dialog'
 
-import { DrawerShiftUpdate } from './drawer-shift-update'
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { DrawerShiftUpdate } from '@/components/drawer-shift-update'
 import { Turno } from '@/types/shift'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 export const UserTurnosList = ({ turnos }: { turnos: Turno[] }) => {
   const [open, setOpen] = useState(false)

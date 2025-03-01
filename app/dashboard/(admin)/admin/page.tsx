@@ -1,13 +1,13 @@
 import { DashboardHeader } from '@/components/header'
 import { DashboardShell } from '@/components/shell'
+import { Database } from '@/types/database'
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { Database } from '@/types/database'
 
 import { ShiftListFilter } from '@/components/shift-list'
-import { Suspense } from 'react'
 import { SkeletonCard } from '@/components/skeleton-card'
+import { Suspense } from 'react'
 
 export const metadata = {
   title: 'Dashboard - Admin'

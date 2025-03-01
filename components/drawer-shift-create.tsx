@@ -1,6 +1,6 @@
 'use client'
-import { CalendarPlus } from 'lucide-react'
-import { Button } from './ui/button'
+import { SelectShiftDay } from '@/components/select-shift-day'
+import { Button } from '@/components/ui/button'
 import {
   Drawer,
   DrawerContent,
@@ -8,8 +8,8 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger
-} from './ui/drawer'
-import { SelectShiftDay } from './select-shift-day'
+} from '@/components/ui/drawer'
+import { CalendarPlus } from 'lucide-react'
 import { useState } from 'react'
 
 export const DrawerShiftCreate = () => {

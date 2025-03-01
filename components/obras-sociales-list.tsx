@@ -1,4 +1,5 @@
 'use client'
+import { Button } from '@/components/ui/button'
 import {
   Table,
   TableBody,
@@ -8,10 +9,9 @@ import {
   TableHeader,
   TableRow
 } from '@/components/ui/table'
-import { ObrasSociales } from '@/types/shift'
-import { Button } from './ui/button'
-import { X } from 'lucide-react'
 import { supabase } from '@/lib/connections/supabase'
+import { ObrasSociales } from '@/types/shift'
+import { X } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
 type ObrasSocialesProps = {

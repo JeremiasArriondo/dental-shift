@@ -1,4 +1,4 @@
-import { Card } from './card'
+import { Card } from '@/components/card'
 import { Check } from 'lucide-react'
 
 export const Services = () => {

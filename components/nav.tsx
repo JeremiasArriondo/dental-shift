@@ -3,9 +3,9 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-import { SidebarNavItem } from '@/types'
+import { Icons } from '@/components/icons'
 import { cn } from '@/lib/utils'
-import { Icons } from './icons'
+import { SidebarNavItem } from '@/types'
 
 interface DashboardNavProps {
   items: SidebarNavItem[]

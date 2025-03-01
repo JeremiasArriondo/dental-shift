@@ -1,11 +1,12 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
+
+import { Button } from '@/components/ui/button'
 import {
   type Session,
   createClientComponentClient
 } from '@supabase/auth-helpers-nextjs'
-import { Button } from './ui/button'
-import { useRouter } from 'next/navigation'
 
 export function AuthButton({ session }: { session: Session | null }) {
   const supabase = createClientComponentClient()

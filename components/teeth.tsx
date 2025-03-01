@@ -1,4 +1,3 @@
-import React from 'react'
 import Tooth from './tooth'
 
 type TeethProps = {

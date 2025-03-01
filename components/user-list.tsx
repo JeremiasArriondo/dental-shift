@@ -1,5 +1,3 @@
-import { User } from '@/types/shift'
-import { UserAvatar } from './user-avatar'
 import {
   Table,
   TableBody,
@@ -8,6 +6,8 @@ import {
   TableHeader,
   TableRow
 } from '@/components/ui/table'
+import { UserAvatar } from '@/components/user-avatar'
+import { User } from '@/types/shift'
 
 export const UserList = ({ users = [] }: { users: User[] }) => {
   return (

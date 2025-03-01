@@ -1,10 +1,10 @@
-import * as React from 'react'
 import Link from 'next/link'
+import * as React from 'react'
 
-import { MainNavItem } from '@/types'
 import { siteConfig } from '@/config/site'
-import { cn } from '@/lib/utils'
 import { useLockBody } from '@/hooks/use-lock-body'
+import { cn } from '@/lib/utils'
+import { MainNavItem } from '@/types'
 import Image from 'next/image'
 
 interface MobileNavProps {

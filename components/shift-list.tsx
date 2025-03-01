@@ -1,10 +1,8 @@
 'use client'
 
-import { UserAvatar } from './user-avatar'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
-import { useEffect, useState } from 'react'
-import { SimpleCalendar } from './simple-calendar'
-import { Turno } from '@/types/shift'
+import { SelectShiftDayAdmin } from '@/components/admin/select-shift-day'
+import { SimpleCalendar } from '@/components/simple-calendar'
+import { Spinner } from '@/components/ui/spinner'
 import {
   Table,
   TableBody,
@@ -13,8 +11,10 @@ import {
   TableHeader,
   TableRow
 } from '@/components/ui/table'
-import { Spinner } from './ui/spinner'
-import { SelectShiftDayAdmin } from './admin/select-shift-day'
+import { UserAvatar } from '@/components/user-avatar'
+import { Turno } from '@/types/shift'
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { useEffect, useState } from 'react'
 
 export const ShiftListFilter = () => {
   const supabase = createClientComponentClient()

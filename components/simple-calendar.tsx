@@ -1,7 +1,7 @@
 'use client'
+import { es } from 'date-fns/locale'
 import React from 'react'
 import { Calendar } from './ui/calendar'
-import { es } from 'date-fns/locale'
 
 type SimpleCalendarType = {
   date: Date

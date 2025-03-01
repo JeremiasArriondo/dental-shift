@@ -1,6 +1,5 @@
 'use client'
-import { FilePlus } from 'lucide-react'
-import { Button } from './ui/button'
+import { Button } from '@/components/ui/button'
 import {
   Drawer,
   DrawerContent,
@@ -8,22 +7,23 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger
-} from './ui/drawer'
-import { useState } from 'react'
-import { z } from 'zod'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
+} from '@/components/ui/drawer'
 import {
   Form,
-  FormField,
   FormControl,
+  FormField,
   FormItem,
   FormLabel,
   FormMessage
-} from './ui/form'
-import { Input } from './ui/input'
-import { toast } from './ui/use-toast'
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { toast } from '@/components/ui/use-toast'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { FilePlus } from 'lucide-react'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
 
 const formSchema = z.object({
   name: z

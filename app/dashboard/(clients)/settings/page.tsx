@@ -2,11 +2,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 import { DashboardHeader } from '@/components/header'
 import { DashboardShell } from '@/components/shell'
+import { supabase as supabaseConnection } from '@/lib/connections/supabase'
+import { Database } from '@/types/database'
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { Database } from '@/types/database'
-import { supabase as supabaseConnection } from '@/lib/connections/supabase'
 
 import { UserPersonalData } from '@/components/user-personal-data'
 import { Suspense } from 'react'

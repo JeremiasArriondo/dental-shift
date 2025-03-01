@@ -1,17 +1,8 @@
 'use client'
-import { useEffect, useState } from 'react'
-import { UserAvatar } from './user-avatar'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from '@/components/ui/select'
-import { MedicalHistory, User } from '@/types/shift'
-import { z } from 'zod'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
+import { Odontogram } from '@/components/odontogram'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Checkbox } from '@/components/ui/checkbox'
 import {
   Form,
   FormControl,
@@ -20,15 +11,24 @@ import {
   FormItem,
   FormLabel,
   FormMessage
-} from './ui/form'
-import { Input } from './ui/input'
-import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
-import { Checkbox } from './ui/checkbox'
-import { Button } from './ui/button'
-import { Label } from './ui/label'
-import { useToast } from './ui/use-toast'
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select'
+import { useToast } from '@/components/ui/use-toast'
+import { UserAvatar } from '@/components/user-avatar'
+import { MedicalHistory, User } from '@/types/shift'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
-import { Odontogram } from './odontogram'
+import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
 
 const formSchema = z.object({
   medico_cabecera: z

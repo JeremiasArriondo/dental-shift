@@ -1,12 +1,12 @@
 import { DashboardHeader } from '@/components/header'
 import { DashboardShell } from '@/components/shell'
+import { UserList } from '@/components/user-list'
+import { supabase as supabaseConnection } from '@/lib/connections/supabase'
+import { Database } from '@/types/database'
+import { User } from '@/types/shift'
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { Database } from '@/types/database'
-import { supabase as supabaseConnection } from '@/lib/connections/supabase'
-import { UserList } from '@/components/user-list'
-import { User } from '@/types/shift'
 
 export const metadata = {
   title: 'Mis datos personales'
