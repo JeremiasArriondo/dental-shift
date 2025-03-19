@@ -50,7 +50,7 @@ export const ShiftListFilter = () => {
         <SimpleCalendar
           date={selectedDate}
           setDate={setSelectedDate}
-          size={12}
+          size={9}
         />
         <SelectShiftDayAdmin action="create" />
       </div>

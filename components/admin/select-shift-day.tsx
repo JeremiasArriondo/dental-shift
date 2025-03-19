@@ -1,7 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 
-import { useToast } from '@/components/ui/use-toast'
 import {
   Select,
   SelectContent,
@@ -9,13 +8,15 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
+import { useToast } from '@/components/ui/use-toast'
 
+import { SCHEDULE } from '@/config/site'
 import { formatDate } from '@/utils/formatDate'
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { useRouter } from 'next/navigation'
 import { DatePicker } from '../date-picker'
 import { Button } from '../ui/button'
 import { Textarea } from '../ui/textarea'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 
 type TimeFormat = `${string}:${string}:${string}`
 
@@ -26,6 +27,9 @@ export const SelectShiftDayAdmin = ({
 }) => {
   const [date, setDate] = useState<Date | undefined>()
   const [hour, setHour] = useState<TimeFormat | undefined>()
+
+  const availableHours = date ? SCHEDULE[new Date(date).getDay()] || [] : []
+
   const [description, setDescription] = useState('')
   const supabase = createClientComponentClient()
   const [users, setUsers] = useState<any[]>([])
@@ -141,7 +145,7 @@ export const SelectShiftDayAdmin = ({
   }
 
   return (
-    <div className="flex flex-col gap-2 w-[360px]">
+    <div className="flex flex-col gap-2 w-[280px]">
       <div>
         <h3 className="text-sm mb-2 text-muted-foreground">
           Crea un nuevo turno:
@@ -171,17 +175,7 @@ export const SelectShiftDayAdmin = ({
           Horarios disponibles:
         </h3>
         <ul className="flex gap-2 overflow-x-scroll">
-          {[
-            '09:00',
-            '09:30',
-            '10:00',
-            '10:30',
-            '11:00',
-            '12:00',
-            '14:30',
-            '15:00',
-            '16:30'
-          ].map((eachHour) => (
+          {availableHours.map((eachHour) => (
             <li key={eachHour}>
               <Button
                 className="w-20"

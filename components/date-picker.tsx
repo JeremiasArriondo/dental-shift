@@ -50,7 +50,11 @@ export function DatePicker({
             setDate(e)
             setIsCalendarOpen(false)
           }}
-          disabled={(date) => date <= subDays(new Date(), 1)}
+          disabled={(date) => {
+            const isPastDate = date <= subDays(new Date(), 1)
+            const isWeekend = [0, 6].includes(date.getDay())
+            return isPastDate || isWeekend
+          }}
           locale={es}
           initialFocus
           size={size}

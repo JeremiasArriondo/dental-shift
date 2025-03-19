@@ -3,6 +3,7 @@ import { DatePicker } from '@/components/date-picker'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { useToast } from '@/components/ui/use-toast'
+import { SCHEDULE } from '@/config/site'
 import { formatDate } from '@/utils/formatDate'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
@@ -20,6 +21,9 @@ export const SelectShiftDay = ({
 }) => {
   const [date, setDate] = useState<Date | undefined>()
   const [hour, setHour] = useState<TimeFormat | undefined>()
+
+  const availableHours = date ? SCHEDULE[new Date(date).getDay()] || [] : []
+
   const [description, setDescription] = useState('')
   const { toast } = useToast()
 
@@ -125,17 +129,7 @@ export const SelectShiftDay = ({
           Horarios disponibles:
         </h3>
         <ul className="flex flex-wrap gap-2">
-          {[
-            '09:00',
-            '09:30',
-            '10:00',
-            '10:30',
-            '11:00',
-            '12:00',
-            '14:30',
-            '15:00',
-            '16:30'
-          ].map((eachHour) => (
+          {availableHours.map((eachHour) => (
             <li key={eachHour}>
               <Button
                 className="w-20"
