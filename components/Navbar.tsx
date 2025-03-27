@@ -14,7 +14,7 @@ export const Navbar = () => {
               width={40}
               alt="Eliana Ginocchio logo"
             />
-            <span className="text-greenDark self-center text-2xl font-semibold whitespace-nowrap">
+            <span className="text-greenDark self-center text-base md:text-2xl font-semibold whitespace-nowrap">
               Eliana Ginocchio
             </span>
           </Link>

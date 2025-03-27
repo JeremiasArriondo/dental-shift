@@ -49,7 +49,7 @@ export const UserTurnosList = ({ turnos }: { turnos: Turno[] }) => {
               <span className="absolute flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full -start-3 ring-8 ring-white">
                 <CalendarCheck />
               </span>
-              <Card className="w-[350px]">
+              <Card className="w-[260px] md:w-[350px]">
                 <CardHeader>
                   <CardTitle>Fecha: {date}</CardTitle>
                   <CardDescription>
@@ -65,7 +65,7 @@ export const UserTurnosList = ({ turnos }: { turnos: Turno[] }) => {
                     <Dialog open={open} onOpenChange={setOpen}>
                       <DialogTrigger asChild>
                         <Button variant="destructive">
-                          <Trash className="mr-2" color="#ffffff" />
+                          <Trash className="md:mr-2" color="#ffffff" />
                           Eliminar
                         </Button>
                       </DialogTrigger>
@@ -83,7 +83,7 @@ export const UserTurnosList = ({ turnos }: { turnos: Turno[] }) => {
                           variant="destructive"
                           onClick={() => deleteTurno(id)}
                         >
-                          <Trash className="mr-2" color="#ffffff" />
+                          <Trash className="md:mr-2" color="#ffffff" />
                           Eliminar
                         </Button>
                       </DialogContent>

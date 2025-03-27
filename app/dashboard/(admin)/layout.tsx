@@ -34,7 +34,7 @@ export default async function DashboardLayout({
   return (
     <div className="flex min-h-screen flex-col space-y-6">
       <header className="sticky top-0 z-40 border-b bg-bgColor backdrop-filter backdrop-blur-3xl backdrop-saturate-200">
-        <div className="flex h-16 items-center justify-between py-4 px-8">
+        <div className="flex h-16 items-center justify-between py-4 px-4 md:px-8">
           <MainNav
             items={dashboardConfig.adminNav}
             isAdmin={user?.role === ADMIN}
@@ -49,7 +49,7 @@ export default async function DashboardLayout({
         </div>
       </header>
 
-      <div className="grid mx-8 gap-12 md:grid-cols-[200px_1fr]">
+      <div className="grid mx-4 md:mx-8 gap-12 md:grid-cols-[200px_1fr]">
         <aside className="hidden w-[200px] flex-col md:flex">
           <DashboardNav items={dashboardConfig.adminNav} />
         </aside>
