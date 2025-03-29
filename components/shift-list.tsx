@@ -14,6 +14,7 @@ import {
 import { UserAvatar } from '@/components/user-avatar'
 import { Turno } from '@/types/shift'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { Calendar } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 export const ShiftListFilter = () => {
@@ -90,7 +91,10 @@ export const ShiftListFilter = () => {
             ) : (
               <TableRow>
                 <TableCell colSpan={5} className="text-center">
-                  No hay turnos para este día
+                  <div className="flex align-center justify-center gap-4">
+                    <Calendar />
+                    <span>No hay turnos para este día</span>
+                  </div>
                 </TableCell>
               </TableRow>
             )}
