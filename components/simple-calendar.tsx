@@ -16,6 +16,7 @@ export const SimpleCalendar = ({ date, setDate, size }: SimpleCalendarType) => {
       selected={date}
       onSelect={setDate}
       locale={es}
+      className="rounded-md border max-w-[286px]"
       size={size}
       initialFocus
     />
