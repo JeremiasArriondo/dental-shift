@@ -141,7 +141,7 @@ export const UserPersonalData = ({
                 </FormItem>
               )}
             />
-            <div className="flex gap-2">
+            <div className="flex gap-2 flex-col md:flex-row">
               <FormField
                 control={form.control}
                 name="dateOfBirth"

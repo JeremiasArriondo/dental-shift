@@ -42,21 +42,23 @@ export default async function DashboardSettingsPage() {
         text="Mantén tu información actualizada"
       />{' '}
       <Suspense fallback={<p>Loadding...</p>}>
-        <Tabs defaultValue="account" className="w-[400px]">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="account">Cuenta</TabsTrigger>
-            <TabsTrigger value="notification">Notificaciones</TabsTrigger>
-          </TabsList>
-          <TabsContent value="account">
-            <UserPersonalData
-              user={user}
-              obraSociales={obraSociales as any[]}
-            />
-          </TabsContent>
-          <TabsContent value="notification">
-            <div>Notificaciones</div>
-          </TabsContent>
-        </Tabs>
+        <div className="w-full">
+          <Tabs defaultValue="account" className="md:w-[400px]">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="account">Cuenta</TabsTrigger>
+              <TabsTrigger value="notification">Notificaciones</TabsTrigger>
+            </TabsList>
+            <TabsContent value="account">
+              <UserPersonalData
+                user={user}
+                obraSociales={obraSociales as any[]}
+              />
+            </TabsContent>
+            <TabsContent value="notification">
+              <div>Notificaciones</div>
+            </TabsContent>
+          </Tabs>
+        </div>
       </Suspense>
     </DashboardShell>
   )
